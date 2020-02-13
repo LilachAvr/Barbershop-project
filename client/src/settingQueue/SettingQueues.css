@@ -21,3 +21,21 @@
     direction: ltr;
     text-align: end;
 }
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    text-align: center;
+    font-size: 20px;
+}
+.alert-warning {
+    color: #ffffff;
+    background-color: #b42a2a;
+    border-color: #b42a2a;
+    text-align: center;
+    font-size: 20px;
+}
+.settingQ{
+    text-align: center;
+    margin: 5% auto;
+}

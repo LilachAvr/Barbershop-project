@@ -6,13 +6,16 @@ import './SettingQueues.css';
 
 class SettingQueues extends Component {
 
-    state = { flag: false, added: false, dateValue: '', selectValue: '', selectStyle: '', allQueues: [], filterQueues: [], alert: false }
+    state = { flag: false, added: false, dateValue: '', selectValue: '', selectStyle: '', allQueues: [], filterQueues: [], alertError: false, alertSuccesss: false }
     id = '';
     dateValue = ''
     selectValue = ''
     selectStyle = ''
     dateVal = ''
     userEmail = localStorage.usertoken.split(',')[3].split(':')[1]
+
+
+
     scheduledCustomerQueues = () => {
 
         this.setState({
@@ -48,7 +51,8 @@ class SettingQueues extends Component {
                 tmp.push(res.data)
                 this.setState({ allQueues: tmp })
                 // this.setState({ flag: true })
-                alert('התור נקבע בהצלחה')
+                // alert('התור נקבע בהצלחה')
+                this.setState({ alertSuccess: true })
             }
             else {
                 // this.setState({ isError: true })
@@ -59,7 +63,7 @@ class SettingQueues extends Component {
 
         }).catch(err => {
 
-            this.setState({ alert: true })
+            this.setState({ alertError: true })
 
             // alert('התור קיים, אנא בחר תור חדש')
             console.log(err)       // this.setState({ isError: true })
@@ -113,109 +117,106 @@ class SettingQueues extends Component {
 
     render() {
 
-        // if (this.state.flag) {
-        //     alert('התור נקבע בהצלחה')
-        // }
-        // console.log(this.props);
+
         let x;
         return (
             <div>
-                {this.state.alert ? <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+                {this.state.alertError ? <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>התור קיים!</strong>  אנא בחר תור חדש.
-<button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick={() =>
-                        this.setState({ alert: !this.state.alert })}>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick={() =>
+                        this.setState({ alertError: !this.state.alertError })}>
+                        <span id='exit' aria-hidden="true">&times;</span>
+                    </button>
+                </div> : null}
+
+                {this.state.alertSuccess ? <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>התור נקבע בהצלחה!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick={() =>
+                        this.setState({ alertSuccess: !this.state.alertSuccess })}>
                         <span id='exit' aria-hidden="true">&times;</span>
                     </button>
                 </div> : null}
 
 
-                <input type="date" name="date" onChange={(e) => {
+                <div className='settingQ'>
 
-                    // this.setState({ selectValue: e.target.value })
-                    this.selectValue = e.target.value;
-                }} />
-
-
-                <select onChange={(e) => {
-                    // this.setState({ selectStyle: e.target.value })
-                    this.selectStyle = e.target.value
-
-                }}>
-                    <option ></option>
-                    <option>תספורת רגילה</option>
-                    <option>תספורת+צבע</option>
-                    <option>תספורת+החלקה+צבע</option>
-                    <option>תספורת+החלקה</option>
-                    <option>תספורת+ציורים</option>
+                    <div>
+                        <input type="date" name="date" onChange={(e) => { this.selectValue = e.target.value; }} />
 
 
-                </select>
 
-                <select onChange={(e) => {
-                    // this.state.dateValue = e.target.value;
-                    // this.setState({ dateValue: e.target.value })
-                    this.dateValue = e.target.value
+                        <select onChange={(e) => { this.selectStyle = e.target.value }}>
+                            <option ></option>
+                            <option>תספורת רגילה</option>
+                            <option>תספורת+צבע</option>
+                            <option>תספורת+החלקה+צבע</option>
+                            <option>תספורת+החלקה</option>
+                            <option>תספורת+ציורים</option>
 
-                }}>
 
-                    <option></option>
-                    <option>11:00</option>
-                    <option>11:20</option>
-                    <option>11:40</option>
+                        </select>
 
-                    <option>12:00</option>
-                    <option>12:20</option>
-                    <option>12:40</option>
 
-                    <option>13:00</option>
-                    <option>13:20</option>
-                    <option>13:40</option>
 
-                    <option>14:00</option>
-                    <option>14:20</option>
-                    <option>14:40</option>
+                        <select onChange={(e) => {
+                            // this.state.dateValue = e.target.value;
+                            // this.setState({ dateValue: e.target.value })
+                            this.dateValue = e.target.value
 
-                    <option>15:00</option>
-                    <option>15:20</option>
-                    <option>15:40</option>
+                        }}>
 
-                    <option>16:00</option>
-                    <option>16:20</option>
-                    <option>16:40</option>
+                            <option></option>
+                            <option>11:00</option>
+                            <option>11:20</option>
+                            <option>11:40</option>
 
-                    <option>17:00</option>
-                    <option>17:20</option>
-                    <option>17:40</option>
+                            <option>12:00</option>
+                            <option>12:20</option>
+                            <option>12:40</option>
 
-                    <option>18:00</option>
-                    <option>18:20</option>
-                    <option>18:40</option>
+                            <option>13:00</option>
+                            <option>13:20</option>
+                            <option>13:40</option>
 
-                    <option>19:00</option>
-                    <option>19:20</option>
-                    <option>19:40</option>
+                            <option>14:00</option>
+                            <option>14:20</option>
+                            <option>14:40</option>
 
-                    <option>20:00</option>
-                    <option>20:20</option>
-                    <option>20:40</option>
-                    <option>21:00</option>
+                            <option>15:00</option>
+                            <option>15:20</option>
+                            <option>15:40</option>
 
-                </select>
-                <button type='button' onClick={
-                    this.scheduledCustomerQueues}>קבע תור</button>
-                {/* // () => {}
-                    // this.setState({ added: true });
-                    // this.props.select(this.state.selectValue, this.state.dateValue);
-                    // this.props.select(this.state.selectValue, this.state.dateValue)
-               */}
-                {/* <div  className='settingQueues'>
-                    <p >{this.state.dateValue} {this.state.selectValue}{this.state.selectStyle}
-                        {this.props.username.map((name, i) => <span key={i}>{name.name}</span>)}
-                    </p>
-                    <button type="button" className="btn btn-dark" onClick={()=>{ 
-                        this.deleteQueue();}}>Delete</button>
-                </div> */}
+                            <option>16:00</option>
+                            <option>16:20</option>
+                            <option>16:40</option>
 
+                            <option>17:00</option>
+                            <option>17:20</option>
+                            <option>17:40</option>
+
+                            <option>18:00</option>
+                            <option>18:20</option>
+                            <option>18:40</option>
+
+                            <option>19:00</option>
+                            <option>19:20</option>
+                            <option>19:40</option>
+
+                            <option>20:00</option>
+                            <option>20:20</option>
+                            <option>20:40</option>
+                            <option>21:00</option>
+
+                        </select>
+                    </div>
+
+                    <div>
+                        <button type='button' onClick={
+                            this.scheduledCustomerQueues}>קבע תור</button>
+
+                    </div>
+                </div>
                 <div className='listQueues'>
 
                     <input type='date' onChange={(e) => {

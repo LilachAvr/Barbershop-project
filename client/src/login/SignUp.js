@@ -4,16 +4,27 @@ import { Redirect, Link} from 'react-router-dom';
 
 
 class SignUp extends Component {
-    state = {email:'', password:'',firstName:'', lastName:'',confirmPassword:'',flag:false, isError:false, terms:false}
+    state = {file:'' ,email:'', password:'',firstName:'', lastName:'',confirmPassword:'',flag:false, isError:false, terms:false}
 
     register = () =>{
-        axios.post('users/signUp',{
-            firstName : this.state.firstName,
-            lastName : this.state.lastName,
-            email : this.state.email,
-            password : this.state.password
-            // confirmPassword : this.state.confirmPassword
-        }).then(res => {
+
+        let formData = new FormData();
+
+        formData.append("img",this.state.file)
+        formData.append("firstName" , this.state.firstName)
+        formData.append("lastName" , this.state.lastName)
+        formData.append("email" , this.state.email)
+        formData.append("password" , this.state.password)
+
+        axios.post('users/signUp',formData
+        // {
+            // firstName : this.state.,firstName,
+            // lastName : this.state.lastName,
+            // email : this.state.email,
+            // password : this.state.password
+            // // confirmPassword : this.state.confirmPassword
+        // }
+        ).then(res => {
             console.log(res);
             if (res.status === 201) {
                 this.setState({flag:true})
@@ -31,6 +42,8 @@ class SignUp extends Component {
         })
     }
     render() {
+        console.log(this.state.file);
+        
         const disabled = !this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName || !this.state.confirmPassword;
         if (this.state.flag) {
             return <Redirect to='/signIn'/>
@@ -43,7 +56,7 @@ class SignUp extends Component {
             <div>
                 
                 <form className='form-manager'>
-                    <Link to='' id='exist' onClick={() => this.setState({ flag: true })}>משתמש רשום</Link>
+                    <Link to='/SignIn' id='exist' onClick={() => this.setState({ flag: true })}>משתמש רשום</Link>
                     
                     <div className="form-group">
                         <input className="form-control form-control-lg" type="text" placeholder="שם פרטי" 
@@ -69,6 +82,11 @@ class SignUp extends Component {
                         onChange = {event => this.setState({confirmPassword:event.target.value})} />
                     </div>
                     
+                    <div className="form-group">
+                        <input type="file" className="form-control" id="exampleInputPassword1" placeholder='Confirm password'
+                        onChange = {event => this.setState({file :event.target.files[0]})} />
+                    </div>
+
                     <button disabled={disabled} type="button" className="btn btn-outline-secondary"  onClick={this.register}>Register</button>
                     {this.state.isError ? <p style = {{color:'red'}}>  Register Error</p>  : ''}
                     <div>

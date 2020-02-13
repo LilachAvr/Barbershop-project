@@ -21,14 +21,13 @@ class SignIn extends Component {
          
         //  return res.data
             if (res.status === 200) {
-                localStorage.setItem("usertoken", JSON.stringify(res.data))
+                localStorage.setItem("usertoken", JSON.stringify(res.data));
+             
                 this.setState({ firstName: res.data })
-                console.log(this.state.firstName);
-                // console.log(this.state.lastName);
-                console.log(res.data);
+
                 
                 this.setState({ flag: true })
-                this.props.userName(res.data)
+                this.props.log(true)
                 
             }
                    else {
@@ -64,7 +63,7 @@ class SignIn extends Component {
                             onChange={event => this.setState({ password: event.target.value })} />
                     </div>
                     {/* <button type="submit" className="btn btn-primary" onClick={() => this.setState({ flag: true })}>Submit</button> */}
-                    <button disabled={disabled} type="button" class="btn btn-outline-secondary"
+                    <button disabled={disabled} type="button" className="btn btn-outline-secondary"
                         onClick={() => {
                             this.login()
                             // this.props.userName(this.state.firstName)
@@ -82,6 +81,7 @@ class SignIn extends Component {
 
         )
     }
+
 }
 
 export default SignIn;

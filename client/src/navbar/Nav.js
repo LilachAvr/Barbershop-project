@@ -24,7 +24,11 @@ import NotFound from '../notFound/NotFound';
 
 class Nav extends Component {
     state = { firstName: [{ firstName: null, lastName: null }], dateHistory: { date: '', time: '' } }
-    // , flag: false, userFlag: false 
+
+    
+
+   
+
     date = (date, time) => {
         let temp = { date, time }
         this.setState({ dateHistory: temp })
@@ -39,7 +43,6 @@ class Nav extends Component {
     }
 
     logOUt() {
-
         localStorage.removeItem('usertoken')
         localStorage.removeItem('admintoken')
         this.props.history.push('/')
@@ -94,11 +97,6 @@ class Nav extends Component {
             </div> */}
         </div>
     )
-
-    // deleteQ = (i) => {
-    //     tempQ = [...this.state.dateHistory]
-    // }
-
     userLink = (
         <div>
             <div className="Navbar">
@@ -130,28 +128,22 @@ class Nav extends Component {
                     </div>
                     <div>
 
+
                         <ul className="navbar-nav">
-                            {/* <li className="nav-item">
-                                <Link to="/SignIn" className="nav-link">User</Link>
-                            </li> */}
+                  
                             <li className="nav-item">
-                                {/* <a href="" onClick={this.logOUt.bind(this)} className="nav-link"> יציאה</a> */}
+                               
                                 <Link to='' onClick={this.logOUt.bind(this)} className="nav-link"> יציאה</Link>
+                  
+
                             </li>
                         </ul>
                     </div>
                 </nav>
             </div>
-            {/* <div className='Home'>
-                <div className='container'>
-                    <h1>More than just a haircut...</h1>
-                    <button type="button" className="btn btn-outline-warning">עוד עלינו</button>
-                    <button type="button" className="btn btn-outline-warning" onClick={() => this.setState({ userFlag: true })}>לקביעת תור</button>
-                </div>
-            </div> */}
+
         </div>
     )
-
     adminLink = (
         <div>
             <div className="Navbar">
@@ -208,22 +200,9 @@ class Nav extends Component {
         </div>
     )
     render() {
-
-        // if (this.state.flag) {
-        //     return <Redirect to='/SignUp' />
-        // }
-
-        // if (this.state.userFlag) {
-        //     return <Redirect to='/SettingQueues' />
-        // }
-
-
-
         return (
             <BrowserRouter>
                 {this.user()}
-                {/* {localStorage.usertoken ? userLink : loginRegLink} */}
-
                 <Switch>
                     <Route exact path='/' component={Home} />
                     <Route exact path='/Home1' component={Home1} />
@@ -231,7 +210,7 @@ class Nav extends Component {
                     <Route exact path='/SettingQueues' render={() => <SettingQueues username={this.state.firstName} select={this.date} />} />
                     <Route exact path='/PriceList' component={PriceList} />
                     <Route exact path='/Products' component={Products} />
-                    <Route exact path='/SignIn' render={() => <SignIn userName={this.username} />} />
+                    <Route exact path='/SignIn' render={() => <SignIn userName={this.username} log={this.props.log}/>} />
                     <Route exact path='/SignUp' component={SignUp} />
                     <Route exact path='/Admin' render={() => <Admin userName={this.username} />} />
                     <Route exact path='/signUpAdmin' component={SignUpAdmin} />
@@ -257,6 +236,9 @@ class Nav extends Component {
             return this.loginRegLink
         }
     }
+    // componentDidUpdate(){
+    //   userType = localStorage.usertoken.split(',')[1].split(':')[1]
+    // }
 }
 
 export default withRouter(Nav)

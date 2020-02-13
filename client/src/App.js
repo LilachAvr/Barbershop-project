@@ -11,7 +11,11 @@ import { BrowserRouter } from 'react-router-dom';
 // import Nav from './navbar1+2/Nav';
 
 class App extends Component {
+state={isLogged:false}
 
+logged =(boolean)=>{
+  this.setState({isLogged:boolean})
+}
 
 
   render() {
@@ -20,7 +24,7 @@ class App extends Component {
 <BrowserRouter>
       <div className="App">
 
-        <Nav />
+        <Nav log={this.logged}/>
    
 
       </div>

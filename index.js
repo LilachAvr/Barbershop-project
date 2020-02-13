@@ -5,20 +5,34 @@ const PORT = process.env.PORT || 2000;
 const app = express();
 
 
+
 const bodyParser = require('body-parser');
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// const path = require('path');
+const path = require('path');
 const barbershopModule = require('./Users');
 
 
-// const publicPath = path.join(__dirname, "..", "public");
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination: "pictureUser",
+    filename: function(req,file,cb){
+        cb(null,Date.now()+file.originalname)
+        
+    }
+})
+const upload = multer({
+    storage: storage 
+})
+
+
+app.use(express.static(path.join(__dirname,"pictureUser")))
 
 // app.use(express.static(publicPath));
 
 app.post
 
-app.post("/Users/signUp", (req, res) => {
+app.post("/Users/signUp", upload.single("img"),  (req, res) => {
   barbershopModule.registration(req, res);
 });
 

@@ -1,14 +1,14 @@
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/my_barbershop", { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/my_barbershop", { useUnifiedTopology: true, useNewUrlParser: true }); 
 const bcrypt = require("bcryptjs");
-
 
 const UserSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     email: String,
-    password: String
+    password: String,
+    img: String
 });
 
 const QueuesSchema = new mongoose.Schema({
@@ -22,7 +22,6 @@ const QueuesSchema = new mongoose.Schema({
 const User = mongoose.model("users", UserSchema);
 const Administrator = mongoose.model("userAdmin", UserSchema);
 const SettingQueues = mongoose.model("queues", QueuesSchema);
-// const SelectQueue = mongoose.model("queues", QueuesSchema);
 
 findTimeInDate = (arj, res) => {
     SettingQueues.findOne({ time: arj.time }, function (err, obj) {
@@ -60,16 +59,6 @@ function registration(req, res) {
             userObj.password = hash;
             userObj.save();
             res.status(201).send(userObj);
-            // User.findOne({ email: userObj.email }, function (err, obj) {
-            //     if (err) throw err;
-            //     if (obj !== null) {
-            //         res.status(403).send('already exists');
-            //     } else {
-            //         console.log(obj);
-            //         userObj.save();
-            //         
-            //     }
-            // })
         });
 
     });
