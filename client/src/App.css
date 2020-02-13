@@ -1,0 +1,114 @@
+/* /* .App img{
+width: 100px;
+height: 100px;
+z-index: 0;
+overflow-y: hidden;
+} 
+body{
+    z-index: 1;
+} */
+#root {
+    /* text-align: center; */
+    background-size: cover;
+    background-image: url('/barbershopImage.jpeg');
+    /* background-color: black; */
+    height: 100vh;
+  }
+  
+  /* .App a{
+    margin: 1%;
+     padding: 10px;
+  display: inline-block;
+    width: 18%;
+    height: 5%;
+    background-color:rgba(201, 104, 25, 0.452);
+    color:white;
+    text-decoration: none;
+    border-radius: 15px;
+  }
+  
+  .App a:hover { 
+    background-color: rgba(201, 104, 25,0.500);
+  }  */ 
+
+  .navbar a{
+    color: #eadaaa;
+    margin: 0 0px 0 23px;
+    /* border-right: 1px solid; */
+    padding: 0 106px 0 0px;
+    text-shadow: 1px 1px rgb(125, 98, 22);
+    font-size: large;
+    font-weight: 700;
+  }
+  .navbar a:hover{
+    color: rgb(189, 189, 189);
+    text-decoration: none;
+    
+  }
+
+  .navbar.navbar-expand-lg.navbar-dark.bg-transparent{
+    justify-content: space-between;
+  }
+  .links{
+    text-align: center;
+  }
+
+  span.nav-link{
+    font-size: 12px;
+    white-space: nowrap;
+    
+  }
+  /* #liLogin{
+    border: 1px solid white;
+    list-style: none;
+    text-shadow: 1px 1px rgb(189, 152, 50);
+    border-radius: 15px;
+    margin: 5px 9px 15px 0px;
+  } */
+  /* #liLogin:hover{
+    background-color: cornsilk;
+  } */
+
+  /* input{
+    color: #fff6f6;
+    background-color: #ff000000;
+    /* border-bottom: 1px solid; */
+    /* border: nan;
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+    direction: rtl;
+  } */ 
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: #eadaaa;
+}
+.bg-transparent {
+  background-color: #825e2ad1!important;
+}
+
+span.nav-link {
+  font-size: 16px;
+  margin-bottom: 0%;
+  font-family: cursive;
+  text-shadow: none;
+  text-transform: capitalize;
+  font-size: 15px;
+  direction: ltr;
+  text-align: end;
+}
+.iconLocation{
+  /* white-space: nowrap; */
+/* padding: 0; */
+  max-width: 30px;
+  /* height: auto; */
+}
+.location{
+padding: 0 !important;
+}
+
+@media screen and (max-width:966px){
+  span.nav-link{
+    white-space: normal;
+  }
+}

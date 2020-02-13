@@ -1,0 +1,29 @@
+#login{
+    text-align: center;
+    margin-top: 10%;
+    color: white;
+}
+#selectUser{
+    display: flex;
+    justify-content: space-around;
+    MARGIN: 7% 0;
+}
+/* input{
+    color: #fff6f6;
+    background-color: #ff000000;
+    /* border-bottom: 1px solid; */
+    /* border: nan;
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+    direction: rtl;
+  }  */
+  span{
+    margin-bottom: 5%;
+    font-family: cursive;
+    text-shadow: 3px 2px rgb(189, 152, 50);
+    text-transform: capitalize;
+    font-size: 4.5rem;
+    direction: ltr;
+    text-align: end;    
+  }
