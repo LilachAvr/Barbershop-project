@@ -21,7 +21,7 @@ class Login extends Component {
         }
         return (
             <div id='login'>
-                <h1>N.A HairStyle</h1>
+                {/* <h1>N.A HairStyle</h1> */}
                 <span>בחירת חשבון</span>
                 <br /><br />
                 <div id='selectUser'>

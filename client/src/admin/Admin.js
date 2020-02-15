@@ -40,7 +40,7 @@ class Admin extends Component {
 
     }
 
- 
+
 
     render() {
         const disabled = !this.state.email || !this.state.password;
@@ -50,15 +50,19 @@ class Admin extends Component {
         return (
 
             <div>
-                <form className='form-manager'>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Email address</label>
+
+                <div class="form-style-6">
+                    <h1>כניסת מנהל</h1>
+                    <form>
+                         {/* <form className='form-manager'> */}
+                    <div className="form-group"> 
+                        {/* <label htmlFor="exampleInputEmail1">Email address</label> */}
                         <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='email@google.com'
                             onChange={event => this.setState({ email: event.target.value })} />
                         <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
+                        {/* <label htmlFor="exampleInputPassword1">Password</label> */}
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder='password'
                             onChange={event => this.setState({ password: event.target.value })} />
                     </div>
@@ -69,11 +73,13 @@ class Admin extends Component {
 
                     <br /> <br />
 
-                    <button type="button" className="link-button" onClick={() => this.setState({ showSomething: true })}>
-                        forgot your password</button>
+                    {/* <button type="button" className="link-button" onClick={() => this.setState({ showSomething: true })}> */}
+                    <p className='forgotPassword'> forgot your password</p>
+                    {/* </button> */}
+                    {/* </form> */}
                 </form>
-
             </div>
+            </div >
 
         )
     }

@@ -54,8 +54,10 @@ class SignUp extends Component {
         }
         return (
             <div>
-                
-                <form className='form-manager'>
+                                <div class="form-style-6">
+                    <h1>הרשמה</h1>
+                    <form>
+                {/* <form className='form-manager'> */}
                     <Link to='/SignIn' id='exist' onClick={() => this.setState({ flag: true })}>משתמש רשום</Link>
                     
                     <div className="form-group">
@@ -82,18 +84,20 @@ class SignUp extends Component {
                         onChange = {event => this.setState({confirmPassword:event.target.value})} />
                     </div>
                     
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <input type="file" className="form-control" id="exampleInputPassword1" placeholder='Confirm password'
                         onChange = {event => this.setState({file :event.target.files[0]})} />
-                    </div>
+                    </div> */}
 
                     <button disabled={disabled} type="button" className="btn btn-outline-secondary"  onClick={this.register}>Register</button>
                     {this.state.isError ? <p style = {{color:'red'}}>  Register Error</p>  : ''}
                     <div>
-                    <Link to='' onClick={() => this.setState({ terms: true })}>תנאי שימוש</Link>
+                    <Link to='/TermsOfUse' id='terms' onClick={() => this.setState({ terms: true })}>תנאי שימוש</Link>
                     </div>
                     
+                {/* </form> */}
                 </form>
+                </div>
             </div>
         )
     }

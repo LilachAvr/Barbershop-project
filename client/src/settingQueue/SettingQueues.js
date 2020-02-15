@@ -116,8 +116,9 @@ class SettingQueues extends Component {
 
 
     render() {
+console.log(this.selectValue);
 
-
+// const disable = !this.selectStyle || !this.dateValue || !this.selectValue;
         let x;
         return (
             <div>
@@ -235,7 +236,9 @@ class SettingQueues extends Component {
                     }}>הצג</button>
 
                     <h1>רשימת תורים</h1>
+                    <div className='arrayQ'>
                     <table className="table">
+                        {/* <div id='headerTable'> */}
                         <thead className="thead-light">
                             <tr>
                                 <th scope="col">שם לקוח</th>
@@ -246,22 +249,26 @@ class SettingQueues extends Component {
                                 <th scope="col">הסרה</th>
                             </tr>
                         </thead>
+                        {/* </div> */}
                         <tbody>
+                            
+                                {this.state.filterQueues.map((q, i) => <tr key={i}>
 
-                            {this.state.filterQueues.map((q, i) => <tr key={i}>
-
-                                <td>{q.userName}</td>
-                                <td>{q.email}</td>
-                                <td>{q.style}</td>
-                                <td>{q.time}</td>
-                                <td>{q.date}</td>
-                                <td ><i className="fa fa-trash-alt" onClick={() => this.deleteQueue(q._id)}></i></td>
-                                {/* <td> <button type="button" className="btn btn-dark" onClick={this.deleteQueue()}>Delete</button></td> */}
-                            </tr>)}
-
+                                    <td>{q.userName}</td>
+                                    <td>{q.email}</td>
+                                    <td>{q.style}</td>
+                                    <td>{q.time}</td>
+                                    <td>{q.date}</td>
+                                    <td ><i className="fa fa-trash-alt" onClick={() => this.deleteQueue(q._id)}></i></td>
+                                    {/* <td> <button type="button" className="btn btn-dark" onClick={this.deleteQueue()}>Delete</button></td> */}
+                                </tr>)}
+                            
                         </tbody>
+                        
                     </table>
+                    </div>
                 </div>
+
             </div>
         )
     }

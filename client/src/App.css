@@ -30,12 +30,15 @@ body{
   .App a:hover { 
     background-color: rgba(201, 104, 25,0.500);
   }  */ 
-
+  .nav-link {
+    display: block;
+    padding: 0.5rem 0rem;
+}
   .navbar a{
     color: #eadaaa;
-    margin: 0 0px 0 23px;
+    margin: 0 0px 0 18px;
     /* border-right: 1px solid; */
-    padding: 0 106px 0 0px;
+    padding: 0px 40px 0 0px;
     text-shadow: 1px 1px rgb(125, 98, 22);
     font-size: large;
     font-weight: 700;
@@ -88,12 +91,12 @@ body{
 }
 
 span.nav-link {
-  font-size: 16px;
+  /* font-size: 16px; */
   margin-bottom: 0%;
   font-family: cursive;
   text-shadow: none;
   text-transform: capitalize;
-  font-size: 15px;
+  font-size: 13px;
   direction: ltr;
   text-align: end;
 }

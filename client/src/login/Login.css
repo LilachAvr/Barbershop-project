@@ -6,7 +6,7 @@
 #selectUser{
     display: flex;
     justify-content: space-around;
-    MARGIN: 7% 0;
+    MARGIN: 5% 0;
 }
 /* input{
     color: #fff6f6;
@@ -27,3 +27,101 @@
     direction: ltr;
     text-align: end;    
   }
+
+  .form-style-6{
+    font: 95% Arial, Helvetica, sans-serif;
+    max-width: 400px;
+    margin: 4vh  auto;
+    padding: 16px;
+    background: #d0c7b8d9;
+  }
+  .form-style-6 h1{
+    background: #bba27d;
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+    margin: -16px -16px 16px -16px;
+  }
+ 
+  
+  .form-style-6 input[type="password"]
+  {
+    -webkit-transition:  all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    padding: 3%;
+    color: black;
+    font: 95% Arial, Helvetica, sans-serif;
+  }
+  .form-style-6 input[type="text"]:focus,
+  .form-style-6 input[type="email"]:focus,
+  .form-style-6 input[type="password"]:focus
+  {
+    box-shadow: 0 0 5px #c7a472 ;
+    padding: 3%;
+    border: 1px solid #c7a472 ;
+  }
+  
+ 
+  .form-style-6 button{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    padding: 3%;
+    background: #896b40 !important ;
+    border-bottom: 2px solid #896b40 !important;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;	
+    color: #fff;
+  }
+
+  .form-style-6 button:hover{
+    background: #c7a472  !important;
+    /* border: 2px solid #c7a472 !important; */
+    border: none;
+  }
+.forgotPassword{
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#exist {
+  position: relative;
+  left: 80%;
+  bottom: 15px;
+  font-size: small;
+  color: white;
+}
+#exist:hover {
+  color: #99670ac0;
+  text-decoration: none;
+}
+
+#terms {
+  color: #ffffff;
+  text-decoration: none;
+  /* background-color: transparent; */
+  /* text-align: center; */
+  /* left: 80%; */
+  margin: auto 40%;
+}
+
+#terms:hover {
+
+  text-decoration: none;
+  color: #99670ac0;
+}
