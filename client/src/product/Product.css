@@ -30,7 +30,7 @@
 
 .imgOverLay{
     position: absolute;
-    width: 85%;
+    width: 86%;
     height: 100%;
     background-color: rgba(129, 108, 77, 0.8);
     opacity: 0;
@@ -39,6 +39,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 5%;
+    margin-left: 7%;
     border-radius: 15px;
 }
 .img1{
@@ -57,3 +58,19 @@ h4,h5,h6 {
     color: white;
     /* margin: 10%; */
 }
+ @media screen and (max-width:500px){
+    .imgOverLay{
+        width: 90%;
+        font-size: 0.5rem;
+    }
+    .imgOverLay:hover{
+      width: 85%;
+      
+    } 
+    .imgOverLay >  h6{
+        font-size: small;
+    }
+    .grid-container{
+        grid-template-columns: 1fr 1fr;
+    }
+ } 

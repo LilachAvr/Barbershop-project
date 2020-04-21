@@ -1,12 +1,13 @@
 .table.table-striped{
     color: white;
     text-align: center;
-    width: 40%;
+    width: 45%;
     /* height: 43vh; */
     margin: auto;
     margin-top: 7%;
-    background-color: #8b775ead;
-    border-radius: 55px;
+    background-color: #410202;
+    /* border-radius: 55px; */
+    border: 7px solid;
 }
 .table.table-borderless{
     color: white;
@@ -17,6 +18,8 @@
 }
 tr{
     background-color: #80808094;
-   
     color: white;
+}
+#button{
+    margin: 0% 75%;
 }

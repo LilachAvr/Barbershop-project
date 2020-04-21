@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
-import './webManager.css';
+import './clientQueues.css';
 import axios from 'axios';
 
-class WebManager extends Component {
+class ClientQueues extends Component {
 
     state = { allQueues: [], filterQueues: [] }
     dateValue = '';
 
+    deleteQueue = (id) => {
+        console.log(this.id);
 
+        axios.delete(`/queues/scheduledCustomerQueues/${id}`)
+            // , this.data)
+
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                    console.log('התור נמחק !!!');
+                    alert('התור נמחק בהצלחה')
+
+                }
+                else {
+                    // this.setState({ isError: true })
+
+                    console.log(`error code ${res.status}`)
+                }
+
+
+            }).catch(err => {
+
+                console.log(err)
+            })
+    }
 
     componentDidMount() {
         axios.get('/queues/scheduledCustomerQueues')
@@ -45,6 +69,7 @@ class WebManager extends Component {
                             <th scope="col">סוג תספורת</th>
                             <th scope="col">שעה</th>
                             <th scope="col">תאריך</th>
+                            <th scope="col">הסרה</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,6 +80,7 @@ class WebManager extends Component {
                             <td>{q.style}</td>
                             <td>{q.time}</td>
                             <td>{q.date}</td>
+                            <td ><i className="fa fa-trash-alt" onClick={() => this.deleteQueue(q._id)}></i></td>
                         </tr>)}
 
                     </tbody>
@@ -76,5 +102,5 @@ class WebManager extends Component {
     }
 }
 
-export default WebManager;
+export default ClientQueues;
 

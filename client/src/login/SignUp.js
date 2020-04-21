@@ -4,7 +4,7 @@ import { Redirect, Link} from 'react-router-dom';
 
 
 class SignUp extends Component {
-    state = {file:'' ,email:'', password:'',firstName:'', lastName:'',confirmPassword:'',flag:false, isError:false, terms:false}
+    state = {file:'' ,phone:'', password:'',firstName:'', lastName:'',confirmPassword:'',flag:false, isError:false, terms:false}
 
     register = () =>{
 
@@ -13,14 +13,14 @@ class SignUp extends Component {
         formData.append("img",this.state.file)
         formData.append("firstName" , this.state.firstName)
         formData.append("lastName" , this.state.lastName)
-        formData.append("email" , this.state.email)
+        formData.append("phone" , this.state.phone)
         formData.append("password" , this.state.password)
 
         axios.post('users/signUp',formData
         // {
             // firstName : this.state.,firstName,
             // lastName : this.state.lastName,
-            // email : this.state.email,
+            // phone : this.state.phone,
             // password : this.state.password
             // // confirmPassword : this.state.confirmPassword
         // }
@@ -44,7 +44,7 @@ class SignUp extends Component {
     render() {
         console.log(this.state.file);
         
-        const disabled = !this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName || !this.state.confirmPassword;
+        const disabled = !this.state.phone || !this.state.password || !this.state.firstName || !this.state.lastName || !this.state.confirmPassword;
         if (this.state.flag) {
             return <Redirect to='/signIn'/>
         }
@@ -53,15 +53,15 @@ class SignUp extends Component {
             return <Redirect to='TermsOfUse'/>
         }
         return (
-            <div>
-                                <div class="form-style-6">
+            <div id='signup'>
+                                <div className="form-style-6 " id='signup'>
                     <h1>הרשמה</h1>
                     <form>
                 {/* <form className='form-manager'> */}
                     <Link to='/SignIn' id='exist' onClick={() => this.setState({ flag: true })}>משתמש רשום</Link>
                     
                     <div className="form-group">
-                        <input className="form-control form-control-lg" type="text" placeholder="שם פרטי" 
+                        <input className="form-control" type="text" placeholder="שם פרטי" 
                         onChange = {event => this.setState({firstName:event.target.value})}/>
                     </div>
                     <div className="form-group">
@@ -70,8 +70,8 @@ class SignUp extends Component {
                          </div>
 
                     <div className="form-group">
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='email@google.com' 
-                        onChange = {event => this.setState({email:event.target.value})}/>
+                        <input type="number" className="form-control" id="exampleInputphone1" aria-describedby="phoneHelp" placeholder='טלפון נייד' 
+                        onChange = {event => this.setState({phone:event.target.value})}/>
                          </div>
 
                     <div className="form-group">

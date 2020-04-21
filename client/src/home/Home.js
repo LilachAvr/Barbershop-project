@@ -19,8 +19,10 @@ class Home extends Component {
                 <div className='container'>
          
                     <h1>More than just a haircut...</h1>
+                    <div id='buttonDetils'>
                     <button type="button" className="btn btn-outline-warning"  onClick={() => this.setState({ aboutUs: true })}>עוד עלינו</button>
                     <button type="button" className="btn btn-outline-warning" onClick={() => this.setState({ flag: true })}>לקביעת תור</button>
+                    </div>
                 </div>
                 
             </div>

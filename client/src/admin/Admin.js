@@ -51,7 +51,7 @@ class Admin extends Component {
 
             <div>
 
-                <div class="form-style-6">
+                <div className="form-style-6">
                     <h1>כניסת מנהל</h1>
                     <form>
                          {/* <form className='form-manager'> */}
