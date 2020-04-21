@@ -1,27 +1,33 @@
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/my_barbershop", { useUnifiedTopology: true, useNewUrlParser: true }); 
+mongoose.connect("mongodb://localhost:27017/my_barbershop", { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false });
 const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    email: String,
+    phone: String,
     password: String,
     img: String
 });
 
 const QueuesSchema = new mongoose.Schema({
     userName: String,
-    email: String,
+    phone: String,
     time: String,
     date: String,
     style: String
+});
+const UpdateActivityTimeSchema = new mongoose.Schema({
+    timeOpen: String,
+    timeClose: String,
+    day: String
 });
 
 const User = mongoose.model("users", UserSchema);
 const Administrator = mongoose.model("userAdmin", UserSchema);
 const SettingQueues = mongoose.model("queues", QueuesSchema);
+const AdminUpdatesActivityTime = mongoose.model("updateacttimes", UpdateActivityTimeSchema);
 
 findTimeInDate = (arj, res) => {
     SettingQueues.findOne({ time: arj.time }, function (err, obj) {
@@ -30,7 +36,7 @@ findTimeInDate = (arj, res) => {
 
             arj.save();
             res.status(201);
-            return 
+            return
             // .send(arj);
 
         } else {
@@ -50,7 +56,7 @@ function registration(req, res) {
     let userObj = new User({
         firstName: body.firstName,
         lastName: body.lastName,
-        email: body.email,
+        phone: body.phone,
         password: body.password
 
     })
@@ -66,10 +72,10 @@ function registration(req, res) {
 
 }
 
- function login  (req, res) {
+function login(req, res) {
     const body = req.body;
-    const reqUser =  User.findOne({ email: body.email }).select('_id password firstName lastName email')
-    
+    const reqUser = User.findOne({ phone: body.phone }).select('_id password firstName lastName phone')
+
     if (reqUser) {
         reqUser.exec((err, user) => {
             bcrypt.compare(body.password, user.password, function (err, isMatch) {
@@ -91,11 +97,11 @@ function registration(req, res) {
 //     var objUser = new Administrator({
 //         firstName: user.firstName,
 //         lastName: user.lastName,
-//         email: user.email,
+//         phone: user.phone,
 //         password: user.password
 
 //     })
-//     Administrator.findOne({ email: objUser.email }, function (err, objAdmin) {
+//     Administrator.findOne({ phone: objUser.phone }, function (err, objAdmin) {
 //         if (err) throw err;
 //         if (objAdmin !== null) {
 //             res.status(403).send('already exists');
@@ -133,13 +139,14 @@ function adminSignIn(req, res) {
         }
     })
 
+
 }
 
 function settingQueues(req, res) {
     const user = req.body;
     const userObj = new SettingQueues({
         userName: user.userName,
-        email: user.email,
+        phone: user.phone,
         time: user.time,
         date: user.date,
         style: user.style
@@ -183,13 +190,12 @@ function getQueues(req, res) {
 
 function deleteQueues(req, res) {
     console.log(req.params.id);
-    console.log(req.params.email);
+    console.log(req.params.phone);
     SettingQueues.remove({ _id: req.params.id })
 
 
-
         .then((data) => {
-            SettingQueues.find({ email: req.params.email })
+            SettingQueues.find({ phone: req.params.phone })
             // console.log(req.params.id, 'data from db');
             res.status(200).send(data);
             // console.log(data, 'deleted!!!');
@@ -203,9 +209,63 @@ function deleteQueues(req, res) {
         })
 }
 
+function gets(req, res) {
+    return AdminUpdatesActivityTime.find({})
+        .then((data) => {
+            console.log(data, 'data from db');
+            res.status(200).send(data);
+
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500);
+        })
+}
+
+function updateOperatingHours(req, res) {
+    let day = req.params.day;
+    console.log(day, 'day');
+    
+    
+    AdminUpdatesActivityTime.findOne({ day: day }, function (err, foundObj) {
+        console.log(foundObj,'foundobj');
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            if (!foundObj) {
+                
+                res.sendStatus(404);
+
+            } else {
+                // if (req.body.day) {
+                //     foundObj.day = req.body.day;
+                // }
+                if (req.body.timeOpen) {
+                    foundObj.timeOpen = req.body.timeOpen;
+                }
+                if (req.body.timeClose) {
+                    foundObj.timeClose = req.body.timeClose
+                }
+                foundObj.save(function (err, updateObj) {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                    } else {
+                        res.send(updateObj);
+                    }
+                })
+            }
+        }
+    })
+
+}
+
 module.exports.registration = registration;
 module.exports.login = login;
 module.exports.adminSignIn = adminSignIn;
 module.exports.settingQueues = settingQueues;
 module.exports.getQueues = getQueues;
 module.exports.deleteQueues = deleteQueues;
+module.exports.updateOperatingHours = updateOperatingHours;
+module.exports.gets = gets;

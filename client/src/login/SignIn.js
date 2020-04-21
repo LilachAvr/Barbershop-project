@@ -9,11 +9,11 @@ import axios from 'axios';
 
 
 class SignIn extends Component {
-    state = { email: '', password: '', flag: false, isError: false }
+    state = { phone: '', password: '', flag: false, isError: false }
     login = () => {
 
         axios.post('users/login', {
-            email: this.state.email,
+            phone: this.state.phone,
             password: this.state.password,
             firstName: this.state.firstName,
             lastName: this.state.lastName
@@ -42,7 +42,7 @@ class SignIn extends Component {
 
 
     render() {
-        const disabled = !this.state.email || !this.state.password;
+        const disabled = !this.state.phone || !this.state.password;
 
         return (
 
@@ -59,14 +59,14 @@ class SignIn extends Component {
                 {/* <form className='form-manager'> */}
                 {/* <div className="form-group"> */}
 
-                <div class="form-style-6">
+                <div className="form-style-6">
                     <h1>לקוח קיים</h1>
                     <form>
                         <div>
-                            {/* <label htmlFor="exampleInputEmail1">Email address</label> */}
-                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='email@google.com'
-                                onChange={event => this.setState({ email: event.target.value })} required />
-                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                            {/* <label htmlFor="exampleInputphone1">phone address</label> */}
+                            <input type="number" className="form-control" id="exampleInputphone1" aria-describedby="phoneHelp" placeholder='טלפון נייד'
+                                onChange={event => this.setState({ phone: event.target.value })} required />
+                            <small id="phoneHelp" className="form-text text-muted">We'll never share your phone with anyone else.</small>
                         </div>
                         <div className="form-group">
                             {/* <label htmlFor="exampleInputPassword1">Password</label> */}

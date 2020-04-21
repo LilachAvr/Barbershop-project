@@ -6,29 +6,32 @@ import './App.css';
 // import Navbar2 from './navbar1+2/Navbar2';
 // import axios from 'axios';
 // import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
-import Nav from './navbar/Nav';
+import NavBar from './navbar/NavBar';
 import { BrowserRouter } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './footer/footer';
 // import Nav from './navbar1+2/Nav';
 
 class App extends Component {
-state={isLogged:false}
+  state = { isLogged: false }
 
-logged =(boolean)=>{
-  this.setState({isLogged:boolean})
-}
+  logged = (boolean) => {
+    this.setState({ isLogged: boolean })
+  }
 
 
   render() {
 
     return (
-<BrowserRouter>
-      <div className="App">
+      <BrowserRouter>
+        <div className="App">
+          
+          <NavBar log={this.logged} />
 
-        <Nav log={this.logged}/>
-   
+          <Footer />
 
-      </div>
-</BrowserRouter>
+        </div>
+      </BrowserRouter>
     )
   }
 }

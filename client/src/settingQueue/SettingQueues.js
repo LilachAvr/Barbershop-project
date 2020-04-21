@@ -12,7 +12,7 @@ class SettingQueues extends Component {
     selectValue = ''
     selectStyle = ''
     dateVal = ''
-    userEmail = localStorage.usertoken.split(',')[3].split(':')[1]
+    userphone = localStorage.usertoken.split(',')[3].split(':')[1]
 
 
 
@@ -30,7 +30,7 @@ class SettingQueues extends Component {
             date: this.selectValue,
             style: this.selectStyle,
             userName: localStorage.usertoken.split(',')[1].split(':')[1],
-            email: this.userEmail
+            phone: this.userphone
         }
         console.log(data);
         console.log(data.id);
@@ -150,7 +150,7 @@ console.log(this.selectValue);
                         <select onChange={(e) => { this.selectStyle = e.target.value }}>
                             <option ></option>
                             <option>תספורת רגילה</option>
-                            <option>תספורת+צבע</option>
+                            <option>תספורת+צבע</option> 
                             <option>תספורת+החלקה+צבע</option>
                             <option>תספורת+החלקה</option>
                             <option>תספורת+ציורים</option>
@@ -255,7 +255,7 @@ console.log(this.selectValue);
                                 {this.state.filterQueues.map((q, i) => <tr key={i}>
 
                                     <td>{q.userName}</td>
-                                    <td>{q.email}</td>
+                                    <td>{q.phone}</td>
                                     <td>{q.style}</td>
                                     <td>{q.time}</td>
                                     <td>{q.date}</td>
@@ -279,21 +279,21 @@ console.log(this.selectValue);
         // console.log(localStorage.usertoken.split(',')[3].split(':')[1]);
         this.getQueues();
 
-        const filterWithEmail = this.state.allQueues.filter((u, index) => u.email === this.userEmail)
+        const filterWithphone = this.state.allQueues.filter((u, index) => u.phone === this.userphone)
 
-        console.log(filterWithEmail);
-        // if (filterWithEmail) {
+        console.log(filterWithphone);
+        // if (filterWithphone) {
         console.log(this.dateVal);
 
         if (this.dateVal === undefined || this.dateVal === "") {
-            this.setState({ filterQueues: filterWithEmail })
+            this.setState({ filterQueues: filterWithphone })
 
 
         } else {
 
             let strdate = this.dateVal.toString();
             console.log(strdate);
-            const filtered = filterWithEmail.filter((q, i) => q.date === strdate);
+            const filtered = filterWithphone.filter((q, i) => q.date === strdate);
             console.log(filtered);
 
             this.setState({ filterQueues: filtered })

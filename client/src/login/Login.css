@@ -1,12 +1,16 @@
 #login{
     text-align: center;
-    margin-top: 10%;
+    margin-top: 14%;
     color: white;
 }
 #selectUser{
     display: flex;
     justify-content: space-around;
-    MARGIN: 5% 0;
+    MARGIN: 2% 0;
+}
+.btn.btn-secondary.btn-lg{
+  background-color: #922727;
+    border:2px solid #dad4c7;
 }
 /* input{
     color: #fff6f6;
@@ -28,15 +32,15 @@
     text-align: end;    
   }
 
-  .form-style-6{
+  .form-style-6 {
     font: 95% Arial, Helvetica, sans-serif;
-    max-width: 400px;
-    margin: 4vh  auto;
+    max-width: 268px;
+    margin: 19vh auto;
     padding: 16px;
-    background: #d0c7b8d9;
-  }
+    background: #c7a2a287;
+}
   .form-style-6 h1{
-    background: #bba27d;
+    background: #4c1111;
     padding: 20px 0;
     font-size: 140%;
     font-weight: 300;
@@ -45,7 +49,15 @@
     margin: -16px -16px 16px -16px;
   }
  
+  #signup.form-style-6{
+   
+      font: 95% Arial, Helvetica, sans-serif;
+      max-width: 400px;
+      margin: 14vh auto 0 auto ;
+      padding: 16px;
+      background: #c7a2a287;
   
+  }
   .form-style-6 input[type="password"]
   {
     -webkit-transition:  all 0.30s ease-in-out;
@@ -74,22 +86,23 @@
   }
   
  
-  .form-style-6 button{
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    width: 100%;
-    padding: 3%;
-    background: #896b40 !important ;
-    border-bottom: 2px solid #896b40 !important;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;	
-    color: #fff;
+    .form-style-6 button {
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      width: 100%;
+      padding: 3%;
+      background: #4c1111 !important;
+      border-bottom: 2px solid #562929 !important;
+      border-top-style: none;
+      border-right-style: none;
+      border-left-style: none;
+      color: #fff;
   }
+  
 
   .form-style-6 button:hover{
-    background: #c7a472  !important;
+    background: #5a1515  !important;
     /* border: 2px solid #c7a472 !important; */
     border: none;
   }
@@ -118,6 +131,7 @@
   /* text-align: center; */
   /* left: 80%; */
   margin: auto 40%;
+  display: contents;
 }
 
 #terms:hover {

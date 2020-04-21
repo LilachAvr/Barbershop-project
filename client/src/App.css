@@ -8,13 +8,27 @@ body{
     z-index: 1;
 } */
 #root {
-    /* text-align: center; */
-    background-size: cover;
-    background-image: url('/barbershopImage.jpeg');
-    /* background-color: black; */
-    height: 100vh;
-  }
+  /* text-align: center; */
+  background-size: cover;
+  background-image: url(/SharedScreenshot4.jpg);
+  /* background-color: black; */
+  height: 100vh;
+  /* max-width: 138%; */
+  /* background-attachment: fixed; */
+  /* background-repeat: no-repeat; */
+  background-position: top;
+}
   
+  #barberlogo{
+    position: absolute;
+    top: 10%;
+    left: 40%;
+  }
+#nphoto{
+  position: absolute;
+  top: 49%;
+  left: 75%;
+}
   /* .App a{
     margin: 1%;
      padding: 10px;
@@ -35,16 +49,16 @@ body{
     padding: 0.5rem 0rem;
 }
   .navbar a{
-    color: #eadaaa;
+    color: #e6e6e6;
     margin: 0 0px 0 18px;
     /* border-right: 1px solid; */
     padding: 0px 40px 0 0px;
-    text-shadow: 1px 1px rgb(125, 98, 22);
+    text-shadow: 1px 1px rgb(107, 107, 107);
     font-size: large;
     font-weight: 700;
   }
   .navbar a:hover{
-    color: rgb(189, 189, 189);
+    color: rgb(252, 249, 249);
     text-decoration: none;
     
   }
@@ -82,23 +96,32 @@ body{
     outline: none;
     direction: rtl;
   } */ 
-
+  .mr-auto, .mx-auto {
+    margin: 0 24% 0 27% !important;
+}
   .navbar-dark .navbar-nav .nav-link {
-    color: #eadaaa;
+    color: #e2e1df;
 }
-.bg-transparent {
-  background-color: #825e2ad1!important;
+.navbar-toggler-icon{
+  font-size: small;
+ 
 }
-
+.navbar-toggler{
+   text-decoration: none;
+}
+.navbar.navbar-expand-lg.navbar-light.bg-transparent{
+  background-color: #88040479!important;
+}
 span.nav-link {
   /* font-size: 16px; */
   margin-bottom: 0%;
   font-family: cursive;
   text-shadow: none;
   text-transform: capitalize;
-  font-size: 13px;
+  /* font-size: 13px; */
   direction: ltr;
   text-align: end;
+  display: contents;
 }
 .iconLocation{
   /* white-space: nowrap; */
@@ -108,6 +131,8 @@ span.nav-link {
 }
 .location{
 padding: 0 !important;
+width: 28px;
+    height: 30px;
 }
 
 @media screen and (max-width:966px){
