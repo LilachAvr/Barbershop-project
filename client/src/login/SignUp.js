@@ -8,23 +8,15 @@ class SignUp extends Component {
 
     register = () =>{
 
-        let formData = new FormData();
 
-        formData.append("img",this.state.file)
-        formData.append("firstName" , this.state.firstName)
-        formData.append("lastName" , this.state.lastName)
-        formData.append("phone" , this.state.phone)
-        formData.append("password" , this.state.password)
-
-        axios.post('users/signUp',formData
-        // {
-            // firstName : this.state.,firstName,
-            // lastName : this.state.lastName,
-            // phone : this.state.phone,
-            // password : this.state.password
-            // // confirmPassword : this.state.confirmPassword
-        // }
-        ).then(res => {
+        axios.post('/users/signUp',
+        {
+            firstName : this.state.firstName,
+            lastName : this.state.lastName,
+            phone : this.state.phone,
+            password : this.state.password,
+            // confirmPassword : this.state.confirmPassword
+        }).then(res => {
             console.log(res);
             if (res.status === 201) {
                 this.setState({flag:true})
@@ -80,14 +72,11 @@ class SignUp extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder='Confirm password'
+                        <input type="password" className="form-control" id="exampleInputPassword" placeholder='Confirm password'
                         onChange = {event => this.setState({confirmPassword:event.target.value})} />
                     </div>
                     
-                    {/* <div className="form-group">
-                        <input type="file" className="form-control" id="exampleInputPassword1" placeholder='Confirm password'
-                        onChange = {event => this.setState({file :event.target.files[0]})} />
-                    </div> */}
+
 
                     <button disabled={disabled} type="button" className="btn btn-outline-secondary"  onClick={this.register}>Register</button>
                     {this.state.isError ? <p style = {{color:'red'}}>  Register Error</p>  : ''}

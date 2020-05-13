@@ -6,7 +6,19 @@ import axios from 'axios';
 
 class SettingQAdmin extends Component {
 
-    state = { flag: false, added: false, dateValue: '', selectValue: '', selectStyle: '', userName: '', allQueues: [], filterQueues: [], alertError: false, alertSuccesss: false }
+    state = {
+        flag: false,
+        added: false,
+        dateValue: '',
+        selectValue: '',
+        selectStyle: '',
+        userName: '',
+        allQueues: [],
+        filterQueues: [],
+        alertError: false,
+        alertSuccesss: false
+    }
+
     id = '';
     dateValue = ''
     selectValue = ''
@@ -188,20 +200,20 @@ class SettingQAdmin extends Component {
 
                     </div>
                 </div>
-              
+
 
             </div>
         )
     }
     filt = () => {
-        if (this.dateValue ==='') {
-            this.setState({filterQueues : this.state.allQueues})
-        }else{
+        if (this.dateValue === '') {
+            this.setState({ filterQueues: this.state.allQueues })
+        } else {
             const filtered = this.state.allQueues.filter((q, i) => q.date === this.dateValue);
-            
-        this.setState({ filterQueues: filtered })
+
+            this.setState({ filterQueues: filtered })
         }
-        
+
 
     }
 

@@ -42,4 +42,30 @@
 }
 .image-gallery-image {
     max-width: 53vh !important;
+    height: 50vh;
+}
+
+
+button:hover{
+    background-color: transparent;
+    /* color: wheat; */
+}
+   
+    .image-gallery-thumbnail .image-gallery-thumbnail-image {
+    vertical-align: middle;
+    width: 100%;
+    line-height: 0;
+    height: 15vh;
+    }
+.image-gallery-icon:hover {
+    color: #5e0303 !important;
+}
+
+.image-gallery-thumbnail:hover, .image-gallery-thumbnail:focus {
+    outline: none;
+    border: 4px solid #5e0303 !important;
+}
+.image-gallery-thumbnail.active, .image-gallery-thumbnail:hover, .image-gallery-thumbnail:focus {
+    outline: none;
+    border: 4px solid #5e0303 !important;
 }

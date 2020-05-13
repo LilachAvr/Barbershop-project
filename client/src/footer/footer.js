@@ -5,7 +5,7 @@ class Footer extends Component {
     render() {
         return (
             <div className="footer">
-                {/* <div id="button"><i className="fas fa-arrow-up"></i></div>
+                <div id="button"><i className="fas fa-arrow-up"></i></div>
                 <div id="container">
                     <div id="cont">
                         <div className="footer_center">
@@ -16,7 +16,7 @@ class Footer extends Component {
 
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
         )
     }
