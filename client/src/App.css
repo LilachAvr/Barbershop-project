@@ -119,7 +119,7 @@ span.nav-link {
   text-shadow: none;
   text-transform: capitalize;
   /* font-size: 13px; */
-  direction: ltr;
+  direction: rtl;
   text-align: end;
   display: contents;
 }

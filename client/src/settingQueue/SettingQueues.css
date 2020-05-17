@@ -132,3 +132,17 @@ border-radius: 0 0 0 -19px;
 border: 13px solid #bbaf99;
 border-radius: 17px;
 }
+
+
+.dms-calendar-booking .mbsc-cal-txt.mbsc-hover:before {
+    background: none;
+}
+
+.dms-calendar-booking .mbsc-sc-whl-gr-c {
+    margin: 0 30px;
+}
+
+.dm-calendar-booking .mbsc-fr-c {
+    text-align: center;
+}
+

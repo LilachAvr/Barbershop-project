@@ -17,7 +17,7 @@ body {
       margin: 16% auto;
   }
   
-  .all {
+  /* .all {
     display: -webkit-box;
     display: flex;
     -webkit-perspective: 10px;
@@ -161,7 +161,7 @@ body {
   .ref::first-letter {
     font-size: 12px;
   }
-  
+   */
   span {
     margin-bottom: 0%;
     font-family: cursive;

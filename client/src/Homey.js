@@ -15,7 +15,6 @@ class Homey extends Component{
             <div className='Home'>
                 <Navbar/>
                 <div className='container'>
-                {/* <h2>N.A HairStyle</h2> */}
                 <h1>More than just a haircut...</h1>
                 <button type="button" className="btn btn-outline-warning">עוד עלינו</button>
                 <button type="button" className="btn btn-outline-warning" onClick={() => this.setState({ flag: true })}>לקביעת תור</button>

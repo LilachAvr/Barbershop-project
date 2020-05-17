@@ -1,26 +1,25 @@
 
-
 import React, { Component } from 'react';
-import './Admin.css'
+// import '../admin/Admin.css'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 
 
-class Admin extends Component {
-    state = { email: '', password: '', flag: false, isError: false }
+class Employee extends Component {
+    state = { phone: '', password: '', flag: false, isError: false }
     admin = () => {
 
         axios.post('/userAdmin/login', {
-            email: this.state.email,
+            phone: this.state.phone,
             password: this.state.password
         }).then(res => {
             console.log(res);
             if (res.status === 200) {
 
-                localStorage.setItem("admintoken", JSON.stringify(res.data));
-                // localStorage.setItem('adminEmail',(res.data.email))
-                console.log(res.data.email);
+                localStorage.setItem("employeetoken", JSON.stringify(res.data));
+                // localStorage.setItem('adminphone',(res.data.phone))
+                console.log(res.data.phone);
                 this.setState({ flag: true })
 
                 this.props.userName(res.data)
@@ -43,23 +42,23 @@ class Admin extends Component {
 
 
     render() {
-        const disabled = !this.state.email || !this.state.password;
+        const disabled = !this.state.phone || !this.state.password;
         if (this.state.flag) {
-            return <Redirect to='/WebManager' />
+            return <Redirect to='/WebEmployee' />
         }
         return (
 
             <div>
 
                 <div className="form-style-6">
-                    <h1>כניסת מנהל</h1>
+                    <h1>כניסת עובד</h1>
                     <form>
                          {/* <form className='form-manager'> */}
                     <div className="form-group"> 
                         {/* <label htmlFor="exampleInputEmail1">Email address</label> */}
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='email@google.com'
-                            onChange={event => this.setState({ email: event.target.value })} />
-                        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <input type="phone" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='phone'
+                            onChange={event => this.setState({ phone: event.target.value })} />
+                        <small id="emailHelp" className="form-text text-muted">We'll never share your phone with anyone else.</small>
                     </div>
                     <div className="form-group">
                         {/* <label htmlFor="exampleInputPassword1">Password</label> */}
@@ -85,4 +84,4 @@ class Admin extends Component {
     }
 }
 
-export default Admin;
+export default Employee;

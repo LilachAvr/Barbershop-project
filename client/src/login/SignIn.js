@@ -1,11 +1,7 @@
-
-
-
 import React, { Component } from 'react';
-import '../admin/Admin.css';
+import '../admin/BusinessManager/Admin.css';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-
 
 
 class SignIn extends Component {
@@ -22,7 +18,7 @@ class SignIn extends Component {
             //  return res.data
             if (res.status === 200) {
                 localStorage.setItem("usertoken", JSON.stringify(res.data));
-
+                
                 this.setState({ firstName: res.data })
 
 

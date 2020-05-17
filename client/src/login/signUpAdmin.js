@@ -4,15 +4,15 @@ import { Redirect } from 'react-router-dom';
 
 
 class SignUpAdmin extends Component {
-    state = {email:'', password:'',firstName:'', lastName:'',confirmPassword:'',flag:false, isError:false}
+    state = {email:'',phone:'', password:'',firstName:'', lastName:'',confirmPassword:'',flag:false, isError:false}
 
-    adminSignUp = () =>{
-        axios.post('/admin/signUpAdmin',{
+    administratorSignUp = () =>{
+        axios.post('/userAdmin/register',{
             firstName : this.state.firstName,
             lastName : this.state.lastName,
             email : this.state.email,
+            phone : this.state.phone,
             password : this.state.password
-            // confirmPassword : this.state.confirmPassword
         }).then(res => {
             console.log(res);
             if (res.status === 201) {
@@ -30,7 +30,7 @@ class SignUpAdmin extends Component {
         })
     }
     render() {
-        const disabled = !this.state.email || !this.state.password || !this.state.firstName || !this.state.lastName || !this.state.confirmPassword;
+        const disabled = (!this.state.email && !this.state.phone)  || !this.state.password || !this.state.firstName || !this.state.lastName || !this.state.confirmPassword;
         if (this.state.flag) {
             return <Redirect to='/Admin'/>
         }
@@ -38,11 +38,11 @@ class SignUpAdmin extends Component {
             <div>
                 <form className='form-manager'>
                     <div className="form-group">
-                        <input class="form-control-lg" type="text" placeholder="שם פרטי" 
+                        <input className="form-control-lg" type="text" placeholder="שם פרטי" 
                         onChange = {event => this.setState({firstName:event.target.value})}/>
                     </div>
                     <div className="form-group">
-                        <input class="form-control-lg" type="text" placeholder="שם משפחה" 
+                        <input className="form-control-lg" type="text" placeholder="שם משפחה" 
                         onChange = {event => this.setState({lastName:event.target.value})}/>
                          </div>
 
@@ -51,17 +51,22 @@ class SignUpAdmin extends Component {
                         onChange = {event => this.setState({email:event.target.value})}/>
                          </div>
 
+                         <div className="form-group">
+                        <input type="phone" className="form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='phone' 
+                        onChange = {event => this.setState({phone:event.target.value})}/>
+                         </div>
+
                     <div className="form-group">
                         <input type="password" className="form-control-lg" id="exampleInputPassword1" placeholder='password' 
                         onChange = {event => this.setState({password:event.target.value})}/>
                     </div>
 
                     <div className="form-group">
-                        <input type="password" className="form-control-lg" id="exampleInputPassword1" placeholder='Confirm password'
+                        <input type="password" className="form-control-lg" id="exampleInputPassword" placeholder='Confirm password'
                         onChange = {event => this.setState({confirmPassword:event.target.value})} />
                     </div>
                     
-                    <button disabled={disabled} type="button" className="btn btn-primary"  onClick={this.adminSignUp}>Register</button>
+                    <button disabled={disabled} type="button" className="btn btn-primary"  onClick={this.administratorSignUp}>Register</button>
                     {this.state.isError ? <p style = {{color:'red'}}>  Register Error</p>  : ''}
                 </form>
             </div>

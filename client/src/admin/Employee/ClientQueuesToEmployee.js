@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './clientQueues.css';
+import '../BusinessManager/clientQueues.css';
 import axios from 'axios';
 
-class ClientQueues extends Component {
+class ClientQueuesToEmployee extends Component {
 
     state = { allQueues: [], filterQueues: [] }
     dateValue = '';
+    userEmployee = localStorage.employeetoken.split(',')[1].split(':')[1].split('"')[1]
 
     deleteQueue = (id) => {
         console.log(this.id);
@@ -89,18 +90,20 @@ class ClientQueues extends Component {
         )
     }
 
+
     filt = () => {
-        
+        const filterWithBarberType = this.state.allQueues.filter((u, index) => u.barber === this.userEmployee)
         if (this.dateValue ==='') {
-            this.setState({filterQueues : this.state.allQueues})
-        }else{
-            const filtered = this.state.allQueues.filter((q, i) => q.date === this.dateValue);
-            
-        this.setState({ filterQueues: filtered })
+            this.setState({ filterQueues: filterWithBarberType })
+        } else {
+            // let strdate = this.dateVal.toString();
+            const filtered = filterWithBarberType.filter((q, i) => q.date === this.dateValue);
+            this.setState({ filterQueues: filtered })
         }
-        
     }
+
+
 }
 
-export default ClientQueues;
+export default ClientQueuesToEmployee;
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../priceList/PriceList.css'
+// import '../priceList/PriceList.css'
 class UpdatePriceList extends Component {
     render() {
         return (
