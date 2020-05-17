@@ -1,6 +1,3 @@
-
-
-
 import React, { Component } from 'react';
 import '../admin/BusinessManager/Admin.css';
 import { Redirect } from 'react-router-dom';
