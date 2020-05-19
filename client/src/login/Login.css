@@ -1,0 +1,141 @@
+#login{
+    text-align: center;
+    margin-top: 14%;
+    color: white;
+}
+#selectUser{
+    display: flex;
+    justify-content: space-around;
+    MARGIN: 2% 0;
+}
+.btn.btn-secondary.btn-lg{
+  background-color: #922727;
+    border:2px solid #dad4c7;
+}
+/* input{
+    color: #fff6f6;
+    background-color: #ff000000;
+    /* border-bottom: 1px solid; */
+    /* border: nan;
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+    direction: rtl;
+  }  */
+  span{
+    margin-bottom: 5%;
+    font-family: cursive;
+    text-shadow: 3px 2px rgb(189, 152, 50);
+    text-transform: capitalize;
+    font-size: 4.5rem;
+    direction: ltr;
+    text-align: end;    
+  }
+
+  .form-style-6 {
+    font: 95% Arial, Helvetica, sans-serif;
+    max-width: 268px;
+    margin: 19vh auto;
+    padding: 16px;
+    background: #c7a2a287;
+}
+  .form-style-6 h1{
+    background: #4c1111;
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+    margin: -16px -16px 16px -16px;
+  }
+ 
+  #signup.form-style-6{
+   
+      font: 95% Arial, Helvetica, sans-serif;
+      max-width: 400px;
+      margin: 14vh auto 0 auto ;
+      padding: 16px;
+      background: #c7a2a287;
+  
+  }
+  .form-style-6 input[type="password"]
+  {
+    -webkit-transition:  all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    padding: 3%;
+    color: black;
+    font: 95% Arial, Helvetica, sans-serif;
+  }
+  .form-style-6 input[type="text"]:focus,
+  .form-style-6 input[type="email"]:focus,
+  .form-style-6 input[type="password"]:focus
+  {
+    box-shadow: 0 0 5px #c7a472 ;
+    padding: 3%;
+    border: 1px solid #c7a472 ;
+  }
+  
+ 
+    .form-style-6 button {
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      width: 100%;
+      padding: 3%;
+      background: #4c1111 !important;
+      border-bottom: 2px solid #562929 !important;
+      border-top-style: none;
+      border-right-style: none;
+      border-left-style: none;
+      color: #fff;
+  }
+  
+
+  .form-style-6 button:hover{
+    background: #5a1515  !important;
+    /* border: 2px solid #c7a472 !important; */
+    border: none;
+  }
+.forgotPassword{
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#exist {
+  position: relative;
+  left: 80%;
+  bottom: 15px;
+  font-size: small;
+  color: white;
+}
+#exist:hover {
+  color: #99670ac0;
+  text-decoration: none;
+}
+
+#terms {
+  color: #ffffff;
+  text-decoration: none;
+  /* background-color: transparent; */
+  /* text-align: center; */
+  /* left: 80%; */
+  margin: auto 40%;
+  display: contents;
+}
+
+#terms:hover {
+
+  text-decoration: none;
+  color: #99670ac0;
+}

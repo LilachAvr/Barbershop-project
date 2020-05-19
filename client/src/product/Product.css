@@ -1,0 +1,76 @@
+.grid-container {
+    display: grid;
+    gap: 20px;
+    grid-column-gap: 50px;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    /* padding: 0 22%; */
+    /* margin: 20px auto; */
+  }
+  
+  .grid-item {
+    /* background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8); */
+    /* padding: 20px; */
+    /* font-size: 30px;
+    text-align: center; */
+  }
+
+  img{
+      /* width:6em */
+    max-width: 300px;
+  }
+
+.img1 img{
+    width: 85%;
+    height: 100%;
+    margin-top: 5%;
+    border-radius: 15px;
+}
+
+.imgOverLay{
+    position: absolute;
+    width: 86%;
+    height: 100%;
+    background-color: rgba(129, 108, 77, 0.8);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-left: 7%;
+    border-radius: 15px;
+}
+.img1{
+    max-width: 300px;
+    position: relative;
+}
+.imgOverLay:hover{
+    opacity: 1;
+}
+
+img#id.grid-item{
+    height: 100%;
+}
+
+h4,h5,h6 {
+    color: white;
+    /* margin: 10%; */
+}
+ @media screen and (max-width:500px){
+    .imgOverLay{
+        width: 90%;
+        font-size: 0.5rem;
+    }
+    .imgOverLay:hover{
+      width: 85%;
+      
+    } 
+    .imgOverLay >  h6{
+        font-size: small;
+    }
+    .grid-container{
+        grid-template-columns: 1fr 1fr;
+    }
+ } 

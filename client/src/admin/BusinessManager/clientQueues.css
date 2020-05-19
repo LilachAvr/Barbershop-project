@@ -1,0 +1,12 @@
+.listQueues{
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px rgb(99, 85, 48);
+}
+tr{
+    background-color: #80808094;
+    color: white;
+}
+.table{
+    direction: rtl;
+}
