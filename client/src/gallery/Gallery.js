@@ -7,71 +7,19 @@ import axios from 'axios';
 
 
 
-const images = [
-    {
-        thumbnail: '1.png',
-        original: '1.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '2.png',
-        original: '2.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '3.png',
-        original: '3.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '4.png',
-        original: '4.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '5.png',
-        original: '5.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '6.png',
-        original: '6.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '7.png',
-        original: '7.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '8.png',
-        original: '8.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '9.png',
-        original: '9.png',
-        className: 'img'
-    },
-    {
-        thumbnail: '10.png',
-        original: '10.png',
-        className: 'img'
-    }
-]
+
 
 
 
 class Gallery extends Component {
     state = { allImages: [], filterImages: [] }
 
-    // x
-    
 
 
-    componentDidMount() {
 
-        axios.get('/uploadImg')
+    componentDidMount(fileImg) {
+
+        axios.get(`/uploadImg/:${fileImg}`)
             .then((res) => {
                 console.log(res.data);
                 this.setState({ allImages: res.data })
@@ -85,19 +33,19 @@ class Gallery extends Component {
     }
 
 
-
     render() {
+
+        console.log(this.state.allImages);
+        // let x = this.state.allImages.map((pic, i) => [{
+        //     thumbnail: pic.filename,
+        //     original: pic.filename,
+        //     className: 'img'
+        // }])
+        // console.log(x);
 
         return (
             <div className='gallery'>
-                <ImageGallery originalClass='img' items={images} />
-                {/* <ImageGallery originalClass='img' item={this.state.filterImages.map((imag, i) => [
-                    {
-                        thumbnail: imag.filename,
-                        original: imag.filename,
-                        className: 'img'
-                    }
-                ])} /> */}
+                <ImageGallery originalClass='img' items={this.state.allImages}/>
             </div>
         )
 

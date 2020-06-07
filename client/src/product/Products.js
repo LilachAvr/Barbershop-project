@@ -15,8 +15,7 @@ class Products extends Component {
                 </div>
                 <div className='img1'>
                     <div className='imgOverLay'>
-                        <h4>Ice Wax</h4>
-                        <h5 style={{ color: "pink" }}>Pink</h5>
+                        <h4>Ice Wax<br/>Pink</h4>
                         <br /><br />
                         <h6>מחיר : 30 ש"ח</h6>
                     </div>
@@ -48,8 +47,8 @@ class Products extends Component {
                 </div>
                 <div className='img1'>
                     <div className='imgOverLay'>
-                        <h4>Ice Wax </h4>
-                        <h5 style={{ color: "black" }}>Black</h5>
+                        <h4>Ice Wax <br/>Black</h4>
+                        
                         <br /><br />
                         <h6>מחיר : 30 ש"ח</h6>
                     </div>

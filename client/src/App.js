@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from './navbar/NavBar';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Footer from './footer/footer';
+import Footer from './footer/footer';
 
 
 
@@ -23,7 +23,7 @@ class App extends Component {
 
           <NavBar log={this.logged} />
 
-          {/* <Footer /> */}
+          <Footer />
 
         </div>
       </BrowserRouter>

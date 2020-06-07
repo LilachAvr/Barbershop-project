@@ -18,7 +18,7 @@ class SignUp extends Component {
                 // confirmPassword : this.state.confirmPassword
             })
             console.log(res,'wbeufwiefowjfw');
-            
+            this.setState({ flag: true })
             // .then(res => {
             //     console.log(res);
             //     if (res.status === 201) {

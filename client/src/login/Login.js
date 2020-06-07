@@ -4,7 +4,11 @@ import { Redirect } from 'react-router-dom';
 import './Login.css';
 import {ButtonToolbar} from 'react-bootstrap';
 import SelectManagerType from './SelectManagerType'
+
+
 class Login extends Component {
+
+    
     state = {ManagerTypeShow:false, admin: false, signUp: false, signIn: false , signUpMeng:false};
     render() {
         let ManagerTypeClose =()=>this.setState({ManagerTypeShow:false})

@@ -6,21 +6,19 @@ import moment from 'moment';
 
 class SettingQueues extends Component {
 
-    state = { flag: false, added: false, dateValue: '', selectValue: new Date(), selectStyle: '', chooseBarber: '', allQueues: [], filterQueues: [], alertError: false, alertSuccesss: false, showUpdateTimes: [], times: [{ time: '11:00' }, { time: '12:00' }, { time: '13:00' }, { time: '14:00' }, { time: '15:00' }, { time: '16:00' }] }
+    state = {timesList:[{date:'',time:''}], flag: false, added: false, dateValue: '', selectValue: new Date(), selectStyle: '', chooseBarber: '', allQueues: [], filterQueues: [], alertError: false, alertSuccess: false, showUpdateTimes: [], times: [{ time: '11:00', isDisable: false }, { time: '12:00', isDisable: false }, { time: '13:00', isDisable: false }, { time: '14:00', isDisable: false }, { time: '15:00', isDisable: false }, { time: '16:00', isDisable: false }] }
     id = '';
     dateValue = ''
     selectValue = ''
     selectStyle = ''
     dateVal = ''
     chooseBarber = ''
-    userphone = localStorage.usertoken.split(',')[1].split(':')[1].split('"')[1]
-    userName = ''
+    userphone = this.props.username.phone
+    userName = this.props.username.userName
     name = ''
     maneX = ''
     times = [{ time: '11:00' }, { time: '12:00' }, { time: '13:00' }, { time: '14:00' }, { time: '15:00' }, { time: '16:00' }];
-
-
-
+    token = localStorage.usertoken.split(',')[1].split(':')[1].split('"')[1]
 
     today = new Date();
     dd = this.today.getDate();
@@ -43,8 +41,6 @@ class SettingQueues extends Component {
     today1 = this.yyyy + '-' + this.checkDateX(this.mm) + '-' + this.checkDateX(this.dd);
 
 
-
-
     scheduledCustomerQueues = () => {
 
         this.setState({
@@ -58,45 +54,41 @@ class SettingQueues extends Component {
             time: this.dateValue,
             date: this.selectValue,
             style: this.selectStyle,
-            userName: this.userName,
-            phone: this.userphone,
+            userName: this.props.username.userName,
+            phone: this.props.username.phone,
             barber: this.chooseBarber
         }
+        console.log(data);
 
-        axios.post('/queues/scheduledCustomerQueues',
-            data
-        ).then(res => {
-
-
-            if (res.status === 201) {
-                axios.get('/Users/me', { headers: { 'x-access-token': this.userphone } })
-                    .then(res => {
-                        this.userName = res.data.firstName
-                        this.userphone = res.data.phone
-                        this.id = res.data._id;
-                        let tmp = [...this.state.allQueues]
-                        tmp.push(res.data)
-                        this.setState({ allQueues: tmp })
-                        this.setState({ alertSuccess: true })
-                    }).catch(err => {
-                        console.log(err);
-
-                    })
-
-            }
-            else {
+        axios.post('/queues/scheduledCustomerQueues', data)
+            .then(res => {
 
 
-                console.log(`error code ${res.status}`)
-            }
+                if (res.status === 201) {
+                    this.id = res.data._id;
+                    let tmp = [...this.state.allQueues]
+                    tmp.push(res.data)
+                    this.setState({ allQueues: tmp })
+                    this.setState({ alertSuccess: true })
+                    this.setState({ isDisable: true })
 
-        }).catch(error => {
 
-            this.setState({ alertError: true })
-            console.log(error.message.conflict);
+                }
+                else {
 
-        })
+
+                    console.log(`error code ${res.status}`)
+                }
+
+            }).catch(error => {
+
+                this.setState({ alertError: true })
+                console.log(error.message.conflict);
+
+            })
     }
+
+
 
     deleteQueue = (id) => {
         axios.delete(`/queues/scheduledCustomerQueues/${id}`)
@@ -104,6 +96,7 @@ class SettingQueues extends Component {
 
             .then(res => {
                 if (res.status === 200) {
+
                     alert('התור נמחק בהצלחה')
                 }
                 else {
@@ -116,39 +109,94 @@ class SettingQueues extends Component {
                 console.log(err)
             })
     }
-    componentDidMount() {
-        this.filt();
-    }
+
+
+
     getQueues = () => {
+        this.getDetilsFromUserToken();
         axios.get('/queues/scheduledCustomerQueues')
             .then((res) => {
+
+
                 this.setState({ allQueues: res.data })
+                console.log(res.data.time);
+                
+                // for (let i = 0; i < this.state.allQueues.length; i++) {
+                //     const element = this.state.allQueues[i];
+                //     console.log(element.time);
+                //     console.log(element.date);
+                //     let temp = [...this.state.timesList]
+                //     temp.push({date:element.date, time:element.time})
+                //     this.setState({timesList: temp})
+                //     console.log(this.state.timesList);
+                //     for (let i = 0; i < this.state.timesList.length; i++) {
+                //         const element =  this.state.timesList[i];
+                //         console.log(element.time);
+                        
+                //     }
+                // }
             })
             .catch((err) => { console.log(err); })
     }
 
+    componentDidMount() {
+        this.getQueues()
+        this.filt();
+    }
+
+    getDetilsFromUserToken = () => {
+        console.log(this.token);
+
+        axios.get('/Users/me', { headers: { 'x-access-token': this.token } })
+
+            .then(res => {
+
+                this.userName = res.data.firstName
+                this.phone = res.data.phone
+                console.log(this.userName, this.phone);
+                this.props.logs(this.userName, this.phone, this.token)
+                console.log(this.userName, this.phone);
+
+
+                
+
+                // this.userphone = res.data.phone
+            }).catch(err => {
+
+                console.log(err);
+            })
+
+    }
+
     render() {
         let x;
+        console.log(this.token);
+        console.log(this.state.allQueues);
+
 
         return (
             <div>
-                {this.state.alertError ? <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                    . אנא בחר/י תור חדש ,<strong>{localStorage.usertoken.split(',')[1].split(':')[1].split('"')[1]}</strong> היי
+                {
+                    this.state.alertError ? <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                        . אנא בחר/י תור חדש ,<strong>{this.props.username.userName}</strong> היי
                         <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() =>
-                        this.setState({ alertError: !this.state.alertError })}>
-                        <span id='exit' aria-hidden="true">&times;</span>
-                    </button>
-                </div> : null}
+                            this.setState({ alertError: !this.state.alertError })}>
+                            <span id='exit' aria-hidden="true">&times;</span>
+                        </button>
+                    </div> : null
+                }
 
-                {this.state.alertSuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>התור נקבע בהצלחה!</strong>
-                    <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() =>
-                        this.setState({ alertSuccess: !this.state.alertSuccess })}>
-                        <span id='exit' aria-hidden="true">&times;</span>
-                    </button>
-                </div> : null}
+                {
+                    this.state.alertSuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>התור נקבע בהצלחה!</strong>
+                        <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() =>
+                            this.setState({ alertSuccess: !this.state.alertSuccess })}>
+                            <span id='exit' aria-hidden="true">&times;</span>
+                        </button>
+                    </div> : null
+                }
 
-                <div className='settingQ'>
+                < div className='settingQ' >
 
                     <div>
                         <select onChange={(e) => { this.chooseBarber = e.target.value; }}>
@@ -178,12 +226,17 @@ class SettingQueues extends Component {
                                 <option key={i} > {time.time} </option>
 
                             )}
+                            {/* {this.state.allQueues.map((t,i)=>
+                            <option key={i}>{t.time}</option>
+                            )} */}
+                            
+                            
                         </select>
                     </div>
                     <div>
                         <button type='button' onClick={this.scheduledCustomerQueues}>קבע תור</button>
                     </div>
-                </div>
+                </div >
                 <div className='listQueues'>
                     <input type='date' onChange={(e) => {
                         x = e.target.value
@@ -198,7 +251,7 @@ class SettingQueues extends Component {
                             <thead className="thead-light">
                                 <tr>
                                     <th scope="col">שם לקוח</th>
-                                    <th scope="col">מייל</th>
+                                    <th scope="col">טלפון</th>
                                     <th scope="col">סוג תספורת</th>
                                     <th scope="col">שעה</th>
                                     <th scope="col">תאריך</th>
@@ -224,13 +277,12 @@ class SettingQueues extends Component {
                     </div>
                 </div>
 
-            </div>
+            </div >
         )
     }
-
     filt = () => {
         this.getQueues();
-        const filterWithphone = this.state.allQueues.filter((u, index) => u.phone === this.userphone)
+        const filterWithphone = this.state.allQueues.filter((u, index) => u.phone === this.phone)
         if (this.dateVal === undefined || this.dateVal === "") {
             this.setState({ filterQueues: filterWithphone })
         } else {
@@ -239,7 +291,6 @@ class SettingQueues extends Component {
             this.setState({ filterQueues: filtered })
         }
     }
-
 
 
 

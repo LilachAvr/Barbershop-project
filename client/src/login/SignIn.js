@@ -4,76 +4,78 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 
-
-
-
 class SignIn extends Component {
-    state = { phone: '', password: '',firstName:'', flag: false, isError: false }
-    // login = () => {
-
-    //     axios.post('users/login', {
-    //         phone: this.state.phone,
-    //         password: this.state.password,
-    //     },
-    //         { withCredentials: true }
-    //     ).then(res => {
-    //         localStorage.setItem('usertoken', res.data.token)
-    //         console.log('res from login', res);
-    //         if (res.data.status === 'created') {
-    //             this.props.handelSuccessfulAuth(res.data)
-    //             console.log(res.data);
-    //         }
-    //     }).catch(
-
-    //         this.setState({ isError: true })
-    //     )
-    // }
+    state = { phone: '', password: '', flag: false, isError: false, userName: '' }
+    token = localStorage.usertoken;
+    phone = ''
+    userName = ''
 
     login = () => {
 
         axios.post('/users/login', {
             phone: this.state.phone,
             password: this.state.password,
-            firstName: this.state.firstName
         }).then(res => {
-            console.log(res);
+            console.log(res.config.data);
+           
+            
+            console.log(res.config.data.split(',')[0].split(':')[1].split('"')[1]);
+            this.phone = res.config.data.split(',')[0].split(':')[1].split('"')[1];
+            console.log(this.phone);
             if (res.status === 200) {
-
                 localStorage.setItem("usertoken", JSON.stringify(res.data));
-                // localStorage.setItem('adminEmail',(res.data.email))
-                console.log(res.data.phone);
                 this.setState({ flag: true })
-
-                this.props.userName(res.data)
+                console.log(this.token)
+                // this.props.userName(this.phone)/
+                this.token = res.data.token
+                console.log(this.token);
+                this.props.log(true)
+                this.getDetilsFromUserToken(this.token)
             }
             else {
                 console.log(`error code ${res.status}`);
                 this.setState({ isError: true });
             }
-
-
         }).catch(err => {
             console.log(err);
-
-
             this.setState({ isError: true });
         })
+    }
+
+    getDetilsFromUserToken = () => {
+        console.log(this.token);
+        
+        axios.get('/Users/me', { headers: { 'x-access-token': this.token } })
+
+            .then(res => {
+
+                this.userName = res.data.firstName
+                this.phone= res.data.phone
+                console.log(this.userName, this.phone);
+                this.props.logs(this.userName,this.phone,this.token)
+                console.log(this.userName, this.phone);
+                
+                console.log(res.data);
+
+
+
+                // this.userphone = res.data.phone
+            }).catch(err => {
+
+                console.log(err);
+            })
 
     }
 
     render() {
         const disabled = !this.state.phone || !this.state.password
-
+        
         return (
-
             <div>
+
                 {this.state.flag ?
                     <Redirect to='/Home1' />
                     : ''}
-
-
-
-
                 <div className="form-style-6">
                     <h1>לקוח קיים</h1>
                     <form>
@@ -89,6 +91,7 @@ class SignIn extends Component {
                         <button disabled={disabled} type="button" className="btn btn-outline-secondary"
                             onClick={() => {
                                 this.login()
+                                // this.getDetilsFromUserToken()
                             }}
                         >Sign - In</button>
 

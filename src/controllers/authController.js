@@ -7,8 +7,11 @@ const User = require('../Models/User')
 const Administrator = require('../Models/AdminLogin')
 const UploadImages = require('../Models/uploadImage')
 const SettingQueues = require('../Models/settingQ')
+const PriceList = require('../Models/priceList')
 const generateJWT = require('../utils/auth')
 const verifyToken = require('./verifyToken')
+const uploadDestination = 'pictureUser'
+const path = require('path');
 
 
 const multer = require("multer");
@@ -58,6 +61,7 @@ router.post("/users/login", async (req, res, next) => {
         })
     }
     const token = await generateJWT(user)
+
     res.json({ auth: true, token });
 });
 
@@ -73,8 +77,8 @@ router.get("/Users/me", verifyToken, async (req, res, next) => {
     const user = await User.findById(req.userId, { password: 0 })
     token = req.get('x-access-token')
     console.log(token);
-    
-    if (!user) { 
+
+    if (!user) {
         return res.status(404).send('No user found');
     }
     res.json(user);
@@ -138,7 +142,10 @@ router.post("/userAdmin/login", async (req, res, next) => {
 
 router.post("/upload", upload.single('myImage'), (req, res) => {
     const obj = new UploadImages({
-        filename: req.file.filename,
+        thumbnail: req.file.filename,
+        original: req.file.filename,
+        className: 'img',
+        contentType: 'image/png/jpg/jpeg'
     })
 
     obj.save()
@@ -146,18 +153,32 @@ router.post("/upload", upload.single('myImage'), (req, res) => {
     console.log('successe upload image');
 });
 
-router.get("/uploadImg", (req, res) => {
-    console.log("--------------/uploadImg ----------------------");
+router.get("/uploadImg/:fileImg", (req, res) => {
+    //     console.log("--------------/uploadImg ----------------------");
+    //     const fileName = path.join(
+    //         __dirname,
+    //         `${uploadDestination}/${req.params.fileImg}`
+    //     );
+    //     res.sendFile(fileName)
+    // }
     return UploadImages.find({})
+
         .then((date) => {
+            const fileName = path.join(
+                __dirname,
+                `${uploadDestination}/${req.params.fileImg}`
+            );
             console.log(date, 'images from db');
-            res.status(200).send(date);
+            res.sendFile(fileName, 'HHGHH')
+            // res.status(200).send(date);
+
         })
         .catch((err) => {
             console.log(err);
             res.status(500);
         })
-})
+}
+)
 
 router.post("/queues/scheduledCustomerQueues", (req, res) => {
     console.log("--------------/queues/scheduled Queues is accessed");
@@ -171,27 +192,28 @@ router.post("/queues/scheduledCustomerQueues", (req, res) => {
         barber: user.barber
     })
 
-    SettingQueues.findOne({ $or: [{ userName: userObj.userName }, { $and: [{ date: userObj.date }, { time: userObj.time }] }] }, function (err, obj) {
-        if (err) throw err;
-        if (obj === null) {
+    SettingQueues.findOne({ $or: [{ phone: userObj.phone }, { $and: [{ date: userObj.date }, { time: userObj.time }, { barber: userObj.barber }] }] },
+        function (err, obj) {
+            if (err) throw err;
+            if (obj === null) {
 
-            console.log('insert new document');
-
-
-            userObj.save();
-            res.status(201).send(userObj);
+                console.log('insert new document');
 
 
+                userObj.save();
+                res.status(201).send(userObj);
 
-        } else {
-            // findTimeInDate(userObj, res);
 
-            console.log('error already exist');
 
-            res.status(409).send(userObj);
+            } else {
+                // findTimeInDate(userObj, res);
 
-        }
-    })
+                console.log('error already exist');
+
+                res.status(409).send(userObj);
+
+            }
+        })
 })
 
 router.get("/queues/scheduledCustomerQueues", (req, res) => {
@@ -210,8 +232,8 @@ router.get("/queues/scheduledCustomerQueues", (req, res) => {
 
 router.delete("/queues/scheduledCustomerQueues/:id", (req, res) => {
     console.log("-----delete---------/queues/scheduled Queues is accessed");
-    console.log(req.params.id);
-    console.log(req.params.phone);
+    console.log(req.params);
+    // console.log(req.params.phone);
     SettingQueues.remove({ _id: req.params.id })
 
 
@@ -221,7 +243,30 @@ router.delete("/queues/scheduledCustomerQueues/:id", (req, res) => {
             res.status(200).send(data);
             // console.log(data, 'deleted!!!');
             console.log(SettingQueues, 'ahdjhfskladJHSDAJFKSAJDHDafksjhafksjhfasgjkhfaksjhfa--------------------------------------------------------------');
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500);
+        })
+})
 
+router.post("/priceUpdated", (req, res) => {
+    const obj = new PriceList({
+        haircutType: req.body.haircutType,
+        price: req.body.price
+    })
+
+    obj.save()
+    res.status(201).send(obj)
+    console.log('successe update prices list');
+});
+
+router.get("/priceUpdated", (req, res) => {
+    console.log("--------------/queues/scheduled Queues is accessed");
+    return PriceList.find({})
+        .then((data) => {
+            console.log(data, 'data from db');
+            res.status(200).send(data);
 
         })
         .catch((err) => {
@@ -230,4 +275,23 @@ router.delete("/queues/scheduledCustomerQueues/:id", (req, res) => {
         })
 })
 
+router.delete("/priceUpdated/:id", (req, res) => {
+    console.log("-----delete---------/haircutType is accessed");
+    console.log(req.params);
+    // console.log(req.params.phone);
+    PriceList.remove({ _id: req.params.id })
+
+
+        .then((data) => {
+            PriceList.find({ haircutType: req.params.haircutType })
+            // console.log(req.params.id, 'data from db');
+            res.status(200).send(data);
+            // console.log(data, 'deleted!!!');
+            console.log(PriceList, 'delete--------------------------------------------------------------');
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500);
+        })
+})
 module.exports = router

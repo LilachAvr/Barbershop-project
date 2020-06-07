@@ -25,35 +25,52 @@ import UpdatePriceList from '../admin/BusinessManager/UpdatePriceList';
 import ReactUploadImage from '../admin/BusinessManager/UploadImages';
 import Employee from '../admin/Employee/Employee';
 import WebEmployee from '../admin/Employee/WebEmployee';
+import S from '../settingQueue/s';
+import Footer from '../footer/footer'
 import NotFound from '../notFound/NotFound';
 
 
 
 
 class NavBar extends Component {
-    state = { firstName: [{ firstName: null, lastName: null }], dateHistory: { date: '', time: '' } }
-
-    date = (date, time) => {
-        let temp = { date, time }
-        this.setState({ dateHistory: temp })
-    }
+    state = { firstName: { firstName: null, phoneNumber: null }, dateHistory: { date: '', time: '' }, name :{userName:'', phone:''} }
+    name = ''
+    // date = (date, time) => {
+    //     let temp = { date, time }
+    //     this.setState({ dateHistory: temp })
+    //     console.log('drdfyhjlkjhggdfghjo;klikjdhtsgdfghijlo;lkjfhdgdfghkjl');
+        
+    // }
 
     username = (name) => {
         let tmp = [this.state.firstName]
         let tempUser = { name: name.firstName, lastname: name.lastName }
+        console.log(tmp);
 
         tmp.push(tempUser)
         this.setState({ firstName: tmp })
     }
 
+    logs = (userName,phone,token) => {
+        console.log(userName,phone,token);
+        let temp = {userName, phone,token}
+        console.log(temp);
+        
+        this.setState({ name: temp})
+        console.log(this.state.name);
+    
+    }
+componentDidMount(){
+    this.logs();
+}
+
     logOUt() {
-        // Cookies.remove('usertoken')
         localStorage.removeItem('usertoken')
-        // Cookies.remove('admintoken')
         localStorage.removeItem('admintoken')
         localStorage.removeItem('employeetoken')
         this.props.history.push('/')
     }
+
     loginRegLink = (
         <Navbar bg="transparent" expand="lg">
             <Navbar.Brand href="#home">
@@ -146,6 +163,7 @@ class NavBar extends Component {
 
     render() {
         console.log('render');
+
         return (
             <BrowserRouter>
                 {this.user()}
@@ -153,10 +171,10 @@ class NavBar extends Component {
                     <Route exact path='/' component={Home} />
                     <Route exact path='/Home1' component={Home1} />
                     <Route exact path='/Gallery' component={Gallery} />
-                    <Route exact path='/SettingQueues' render={() => <SettingQueues username={this.state.firstName} select={this.date} />} />
+                    <Route exact path='/SettingQueues' render={() => <SettingQueues logs={this.logs} username={this.state.name} phone={this.state.phoneNumber} select={this.date} />} />
                     <Route exact path='/PriceList' component={PriceList} />
                     <Route exact path='/Products' component={Products} />
-        <Route exact path='/SignIn' render={() => <SignIn userName={this.username} log={this.props.log} />} />
+                    <Route exact path='/SignIn' render={() => <SignIn userName={this.username} logs={this.logs} log={this.props.log}/>} />
                     <Route exact path='/SignUp' component={SignUp} />
                     <Route exact path='/Admin' render={() => <Admin userName={this.username} />} />
                     <Route exact path='/signUpAdmin' component={SignUpAdmin} />
@@ -172,6 +190,8 @@ class NavBar extends Component {
                     <Route exact path='/UpdatePriceList' component={UpdatePriceList} />
                     <Route exact path='/UploadImages' component={ReactUploadImage} />
                     <Route exact path='/Employee' render={() => <Employee userName={this.username} />} />
+                    <Route exact path='/S' component={S}/>
+                    <Route exact path='/Footer' component={Footer}/>
                     <Route component={NotFound} />
                 </Switch>
             </BrowserRouter>

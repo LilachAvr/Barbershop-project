@@ -18,12 +18,14 @@ class Admin extends Component {
             console.log(res);
             if (res.status === 200) {
 
-                localStorage.setItem("admintoken", JSON.stringify(res.data));
+                localStorage.setItem("admintoken", JSON.stringify(res.data.auth));
                 // localStorage.setItem('adminEmail',(res.data.email))
                 console.log(res.data.email);
                 this.setState({ flag: true })
 
-                this.props.userName(res.data)
+                this.props.userName(res.data.token)
+                console.log(res.data.token);
+                
             }
             else {
                 console.log(`error code ${res.status}`);
@@ -48,9 +50,7 @@ class Admin extends Component {
             return <Redirect to='/WebManager' />
         }
         return (
-
             <div>
-
                 <div className="form-style-6">
                     <h1>כניסת מנהל</h1>
                     <form>
