@@ -1,1 +1,1 @@
-web: node src/index.js src/app.js
+web: node src/index.js src/app.js src/config.js src/datebase.js
