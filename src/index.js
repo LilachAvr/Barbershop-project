@@ -1,6 +1,6 @@
 const app = require('./app')
 require('./datebase')
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 2000
 
 async function init(){
   await app.listen(PORT);

@@ -6,7 +6,7 @@ import moment from 'moment';
 
 class SettingQueues extends Component {
 
-    state = {timesList:[{date:'',time:''}], flag: false, added: false, dateValue: '', selectValue: new Date(), selectStyle: '', chooseBarber: '', allQueues: [], filterQueues: [], alertError: false, alertSuccess: false, showUpdateTimes: [], times: [{ time: '11:00', isDisable: false }, { time: '12:00', isDisable: false }, { time: '13:00', isDisable: false }, { time: '14:00', isDisable: false }, { time: '15:00', isDisable: false }, { time: '16:00', isDisable: false }] }
+    state = { timesAlreadySet: '', timesList: [{ date: '', time: '' }], flag: false, added: false, dateValue: '', selectValue: new Date(), selectStyle: '', chooseBarber: '', allQueues: [], filterQueues: [], alertError: false, alertSuccess: false, showUpdateTimes: [], times: [{ time: '11:00', isDisable: false }, { time: '12:00', isDisable: false }, { time: '13:00', isDisable: false }, { time: '14:00', isDisable: false }, { time: '15:00', isDisable: false }, { time: '16:00', isDisable: false }] }
     id = '';
     dateValue = ''
     selectValue = ''
@@ -120,27 +120,25 @@ class SettingQueues extends Component {
 
                 this.setState({ allQueues: res.data })
                 console.log(res.data.time);
-                
-                // for (let i = 0; i < this.state.allQueues.length; i++) {
-                //     const element = this.state.allQueues[i];
-                //     console.log(element.time);
-                //     console.log(element.date);
-                //     let temp = [...this.state.timesList]
-                //     temp.push({date:element.date, time:element.time})
-                //     this.setState({timesList: temp})
-                //     console.log(this.state.timesList);
-                //     for (let i = 0; i < this.state.timesList.length; i++) {
-                //         const element =  this.state.timesList[i];
-                //         console.log(element.time);
-                        
-                //     }
-                // }
+
+                for (let i = 0; i < this.state.allQueues.length; i++) {
+                    const element = this.state.allQueues[i];
+                    console.log(element.time);
+                    console.log(element.date);
+                    let temp = [...this.state.timesList]
+                    temp.push({ date: element.date, time: element.time })
+                    this.setState({ timesList: temp })
+                    console.log(this.state.timesList);
+
+                }
+                this.filtTimes()
             })
             .catch((err) => { console.log(err); })
     }
 
     componentDidMount() {
-        this.getQueues()
+    
+        
         this.filt();
     }
 
@@ -158,7 +156,7 @@ class SettingQueues extends Component {
                 console.log(this.userName, this.phone);
 
 
-                
+
 
                 // this.userphone = res.data.phone
             }).catch(err => {
@@ -229,8 +227,8 @@ class SettingQueues extends Component {
                             {/* {this.state.allQueues.map((t,i)=>
                             <option key={i}>{t.time}</option>
                             )} */}
-                            
-                            
+
+
                         </select>
                     </div>
                     <div>
@@ -292,7 +290,21 @@ class SettingQueues extends Component {
         }
     }
 
+    filtTimes = () => {
+        for (let i = 0; i < this.state.times.length; i++) {
+            // const element = this.state.times[i].time;
+            if (this.state.times[i].time === this.state.timesList[i].time) {
+                console.log('splice');
+                this.state.times[i].time.splice(i,1)
+                console.log(this.state.times[i].time);
+                
+            }else{
+                console.log('error');
+                
+            }
+        }
 
+    }
 
 }
 
