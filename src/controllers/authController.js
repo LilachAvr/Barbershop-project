@@ -10,13 +10,19 @@ const SettingQueues = require('../Models/settingQ')
 const PriceList = require('../Models/priceList')
 const generateJWT = require('../utils/auth')
 const verifyToken = require('./verifyToken')
-const uploadDestination = 'pictureUser'
+const uploadDestination = 'src/uploadDestination'
 const path = require('path');
+const express = require('express');
+const bodyParser= require('body-parser')
 
+router.use(bodyParser.json())
+
+router.use(bodyParser.urlencoded({extended: false}))
 
 const multer = require("multer");
 const storage = multer.diskStorage({
-    destination: "pictureUser",
+    destination: uploadDestination,
+
     filename: function (req, file, cb) {
         cb(null, Date.now() + file.originalname)
 
@@ -28,7 +34,7 @@ const upload = multer({
 })
 
 
-
+router.use(express.static(path.join(__dirname, uploadDestination)))
 
 
 router.post("/users/signUp", async (req, res, next) => {
@@ -145,7 +151,6 @@ router.post("/upload", upload.single('myImage'), (req, res) => {
         thumbnail: req.file.filename,
         original: req.file.filename,
         className: 'img',
-        contentType: 'image/png/jpg/jpeg'
     })
 
     obj.save()
@@ -153,24 +158,33 @@ router.post("/upload", upload.single('myImage'), (req, res) => {
     console.log('successe upload image');
 });
 
-router.get("/uploadImg/:fileImg", (req, res) => {
-    //     console.log("--------------/uploadImg ----------------------");
-    //     const fileName = path.join(
-    //         __dirname,
-    //         `${uploadDestination}/${req.params.fileImg}`
-    //     );
-    //     res.sendFile(fileName)
-    // }
+router.get("/uploadImg", (req, res) => {
+        console.log("--------------/uploadImg ----------------------");
+        // const fileName = path.join(
+        //     __dirname,
+        //     `${uploadDestination}/${req.params.fil}`
+        // );
+        // res.sendFile(fileName)
+    // 
+    console.log('image success')
+    // const fileName = path.join(
+    //     __dirname,
+    //     `${uploadDestination}/${req.params.newFileName}`
+    // );
+
+    // res.sendFile(fileName)
+    // console.log(fileName,'fjengnekgn');
+    
     return UploadImages.find({})
 
         .then((date) => {
-            const fileName = path.join(
-                __dirname,
-                `${uploadDestination}/${req.params.fileImg}`
-            );
+            // const fileName = path.join(
+            //     __dirname,
+            //     `${uploadDestination}/${req.params.fileImg}`
+            // );
             console.log(date, 'images from db');
-            res.sendFile(fileName, 'HHGHH')
-            // res.status(200).send(date);
+            // res.sendFile(fileName, 'HHGHH')
+            res.status(200).send(date);
 
         })
         .catch((err) => {

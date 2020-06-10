@@ -17,9 +17,9 @@ class Gallery extends Component {
 
 
 
-    componentDidMount(fileImg) {
+    componentDidMount() {
 
-        axios.get(`/uploadImg/:${fileImg}`)
+        axios.get(`/uploadImg`)
             .then((res) => {
                 console.log(res.data);
                 this.setState({ allImages: res.data })

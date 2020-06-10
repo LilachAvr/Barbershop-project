@@ -140,3 +140,9 @@ width: 28px;
     white-space: normal;
   }
 }
+
+.rington{
+  max-width: 40px;
+  background-color: #9f1212;
+  border-radius: 50%;
+}

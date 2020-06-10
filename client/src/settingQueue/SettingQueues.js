@@ -6,7 +6,11 @@ import moment from 'moment';
 
 class SettingQueues extends Component {
 
-    state = { timesAlreadySet: '', timesList: [{ date: '', time: '' }], flag: false, added: false, dateValue: '', selectValue: new Date(), selectStyle: '', chooseBarber: '', allQueues: [], filterQueues: [], alertError: false, alertSuccess: false, showUpdateTimes: [], times: [{ time: '11:00', isDisable: false }, { time: '12:00', isDisable: false }, { time: '13:00', isDisable: false }, { time: '14:00', isDisable: false }, { time: '15:00', isDisable: false }, { time: '16:00', isDisable: false }] }
+    state = {
+        dateChoosen: false, barberChoosen: false, styleChoosen: false,
+        timesAlreadySet: '', timesList: [], flag: false, added: false, dateValue: '', selectValue: new Date(), selectStyle: '', chooseBarber: '', allQueues: [], filterQueues: [], alertError: false, alertSuccess: false, showUpdateTimes: [],
+        times: [{ time: '11:00' }, { time: '12:00' }, { time: '13:00' }, { time: '14:00' }, { time: '15:00' }, { time: '16:00' }]
+    }
     id = '';
     dateValue = ''
     selectValue = ''
@@ -58,7 +62,7 @@ class SettingQueues extends Component {
             phone: this.props.username.phone,
             barber: this.chooseBarber
         }
-        console.log(data);
+        console.log(data.time);
 
         axios.post('/queues/scheduledCustomerQueues', data)
             .then(res => {
@@ -86,6 +90,7 @@ class SettingQueues extends Component {
                 console.log(error.message.conflict);
 
             })
+
     }
 
 
@@ -126,20 +131,21 @@ class SettingQueues extends Component {
                     console.log(element.time);
                     console.log(element.date);
                     let temp = [...this.state.timesList]
-                    temp.push({ date: element.date, time: element.time })
+                    temp.push({ date: element.date, time: element.time, barber: element.barber })
                     this.setState({ timesList: temp })
                     console.log(this.state.timesList);
 
                 }
-                this.filtTimes()
+
             })
             .catch((err) => { console.log(err); })
     }
 
     componentDidMount() {
-    
-        
+        // this.getQueues()
+
         this.filt();
+
     }
 
     getDetilsFromUserToken = () => {
@@ -171,7 +177,6 @@ class SettingQueues extends Component {
         console.log(this.token);
         console.log(this.state.allQueues);
 
-
         return (
             <div>
                 {
@@ -186,7 +191,15 @@ class SettingQueues extends Component {
 
                 {
                     this.state.alertSuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>התור נקבע בהצלחה!</strong>
+                        {this.state.filterQueues.map((q, i) => <tr key={i}>
+                            <td>{q.userName}</td>
+                            <td>{q.phone}</td>
+                            <td>{q.style}</td>
+                            <td>{q.time}</td>
+                            <td>{q.date}</td>
+                            <td>{q.barber}</td>
+                            <td ><i className="fa fa-trash-alt" onClick={() => this.deleteQueue(q._id)}></i></td>
+                        </tr>)}<strong>התור נקבע בהצלחה!</strong>
                         <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() =>
                             this.setState({ alertSuccess: !this.state.alertSuccess })}>
                             <span id='exit' aria-hidden="true">&times;</span>
@@ -195,41 +208,49 @@ class SettingQueues extends Component {
                 }
 
                 < div className='settingQ' >
-
+                
                     <div>
-                        <select onChange={(e) => { this.chooseBarber = e.target.value; }}>
+                        <select onChange={(e) => { this.chooseBarber = e.target.value; this.setState({ barberChoosen: true }) }}>
                             <option > בחר ספר</option>
                             <option >worker</option>
                             <option >admin</option>
                         </select>
+                        {this.state.barberChoosen ? <input id='calendar' type="date" name="date"
+                            onChange={(e) => {
+                                this.selectValue = e.target.value;
+                                this.setState({ dateChoosen: true });
+                                this.filtTimes()
+                            }}
+                            min={this.today1} max={this.newformat} /> : ''}
 
-                        <input id='calendar' type="date" name="date" onChange={(e) => { this.selectValue = e.target.value; }} min={this.today1} max={this.newformat} />
 
+                        {this.state.dateChoosen ?
+                            <select onChange={(e) => { this.dateValue = e.target.value; this.setState({ styleChoosen: true }) }}>
 
+                                {this.state.times.map((time, i) =>
 
-                        {/* <input id='calendar' type="date" name="date" onChange={(e) => { this.allTimesUser(e.target.value) }} min={this.today1} max={this.newformat} /> */}
-                        <select onChange={(e) => { this.selectStyle = e.target.value }}>
-                            <option ></option>
-                            <option>תספורת רגילה</option>
-                            <option>תספורת+צבע</option>
-                            <option>תספורת+החלקה+צבע</option>
-                            <option>תספורת+החלקה</option>
-                            <option>תספורת+ציורים</option>
-                        </select>
+                                    <option key={i} > {time.time} </option>
 
-                        <select onChange={(e) => { this.dateValue = e.target.value }}>
-
-                            {this.state.times.map((time, i) =>
-
-                                <option key={i} > {time.time} </option>
-
-                            )}
-                            {/* {this.state.allQueues.map((t,i)=>
+                                )}
+                                {/* {this.state.allQueues.map((t,i)=>
                             <option key={i}>{t.time}</option>
                             )} */}
 
 
-                        </select>
+                            </select>
+                            : ''}
+                        {/* <input id='calendar' type="date" name="date" onChange={(e) => { this.allTimesUser(e.target.value) }} min={this.today1} max={this.newformat} /> */}
+                        {this.state.styleChoosen ?
+                            <select onChange={(e) => { this.selectStyle = e.target.value }}>
+                                <option ></option>
+                                <option>תספורת רגילה</option>
+                                <option>תספורת+צבע</option>
+                                <option>תספורת+החלקה+צבע</option>
+                                <option>תספורת+החלקה</option>
+                                <option>תספורת+ציורים</option>
+                            </select>
+                            : ''}
+
                     </div>
                     <div>
                         <button type='button' onClick={this.scheduledCustomerQueues}>קבע תור</button>
@@ -283,26 +304,48 @@ class SettingQueues extends Component {
         const filterWithphone = this.state.allQueues.filter((u, index) => u.phone === this.phone)
         if (this.dateVal === undefined || this.dateVal === "") {
             this.setState({ filterQueues: filterWithphone })
+            console.log(this.state.filterQueues);
         } else {
             let strdate = this.dateVal.toString();
             const filtered = filterWithphone.filter((q, i) => q.date === strdate);
             this.setState({ filterQueues: filtered })
+            console.log(this.state.filterQueues);
+
         }
     }
 
+
     filtTimes = () => {
+        console.log(this.state.timesList);
+
         for (let i = 0; i < this.state.times.length; i++) {
-            // const element = this.state.times[i].time;
-            if (this.state.times[i].time === this.state.timesList[i].time) {
-                console.log('splice');
-                this.state.times[i].time.splice(i,1)
-                console.log(this.state.times[i].time);
-                
-            }else{
-                console.log('error');
-                
+            const clientTime = this.state.times[i].time;
+            for (let j = 0; j < this.state.timesList.length; j++) {
+                const dbTime = this.state.timesList[j].time;
+                console.log(clientTime, dbTime);
+
+                if (clientTime === dbTime && this.state.timesList[j].date === this.selectValue && this.state.timesList[j].barber === this.chooseBarber) {
+                    console.log(this.state.times.splice(i, 0));
+                    return this.state.times.splice(i, 1)
+
+                } else {
+                    console.log('eroor splice');
+                }
             }
         }
+
+        // for (let i = 0; i < this.state.times.length; i++) {
+        //     // const element = this.state.times[i].time;
+        //     if (this.state.times[i].time === this.state.timesList[i].time) {
+        //         console.log('splice');
+        //         this.state.times[i].time.splice(i,1)
+        //         console.log(this.state.times[i].time);
+
+        //     }else{
+        //         console.log('error');
+
+        //     }
+        // }
 
     }
 

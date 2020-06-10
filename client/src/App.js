@@ -22,7 +22,7 @@ class App extends Component {
         <div className="App">
 
           <NavBar log={this.logged} />
-
+          <img className='rington' src='noun_ringtone_682260.png' alt=''/>
           <Footer />
 
         </div>
